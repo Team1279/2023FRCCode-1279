@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer; //used for Autonomous Mode
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
-import frc.robot.subsystems.Pneumatics;
+//import frc.robot.subsystems.Pneumatics;
 
 import frc.robot.commands.ArmExtend;
 import frc.robot.commands.ArmRetract;
@@ -37,6 +37,7 @@ public class RobotContainer
   public static ShooterSubsystem shooter = new ShooterSubsystem();
   public static MotorControllers motors = new MotorControllers();
 
+  /* 
   //Pneumatics Declare
   Pneumatics pneumatics = new Pneumatics();
   ArmExtend armExtend = new ArmExtend(pneumatics);
@@ -45,6 +46,7 @@ public class RobotContainer
   ConeRelease coneRelease = new ConeRelease(pneumatics);
   CubeGrab cubeGrab = new CubeGrab(pneumatics);
   CubeRelease cubeRelease = new CubeRelease(pneumatics);
+  */
 
   //private PickupCargo pickupCargo = new PickupCargo(intake);
   //private ConveyorIn inConveyor = new ConveyorIn(conveyor);
@@ -91,8 +93,8 @@ public class RobotContainer
     //Gamepads.operator_A_Button.toggleWhenPressed(command)
     Gamepads.operator_A_Button.whenHeld(lowerIntake);
     Gamepads.operator_B_Button.whenHeld(raiseIntake);
-    Gamepads.operator_X_Button.whenHeld(armExtend);
-    Gamepads.operator_Y_Button.whenPressed(armRetract);
+    //Gamepads.operator_X_Button.whenHeld(armExtend);
+    //Gamepads.operator_Y_Button.whenPressed(armRetract);
     Gamepads.operator_leftShoulderButton.whenHeld(loadCargo);
     Gamepads.operator_rightShoulderButton.whenHeld(shootCargo);
     Gamepads.operator_backButton.whenHeld(lowerClimbers);

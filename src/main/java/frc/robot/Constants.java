@@ -50,6 +50,17 @@ public final class Constants
         public static final int DRIVER_GAMEPAD_ID = 0; 
         public static final int OPERATOR_GAMEPAD_ID = 1; 
     }
+
+    public static final class PneumaticIDs
+    {
+        //This is where you can define the ID's for each pneumatic solenoid on the robot
+        public static final int ARM_EXTEND_ID = 0; //6
+        public static final int ARM_RETRACT_ID = 1; //7
+        public static final int CONE_GRAB_ID = 4; 
+        public static final int CONE_RELEASE_ID = 5;
+        public static final int CUBE_GRAB_ID = 2; 
+        public static final int CUBE_RELEASE_ID = 3;
+    }
     
     public static final class ButtonIDs
     {
