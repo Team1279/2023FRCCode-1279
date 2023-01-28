@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer; //used for Autonomous Mode
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
-//import frc.robot.subsystems.Pneumatics;
+import frc.robot.subsystems.Pneumatics;
 
 import frc.robot.commands.ArmExtend;
 import frc.robot.commands.ArmRetract;
@@ -37,16 +37,19 @@ public class RobotContainer
   public static ShooterSubsystem shooter = new ShooterSubsystem();
   public static MotorControllers motors = new MotorControllers();
 
-  /* 
+   
   //Pneumatics Declare
-  Pneumatics pneumatics = new Pneumatics();
-  ArmExtend armExtend = new ArmExtend(pneumatics);
-  ArmRetract armRetract = new ArmRetract(pneumatics);
-  ConeGrab coneGrab = new ConeGrab(pneumatics);
-  ConeRelease coneRelease = new ConeRelease(pneumatics);
-  CubeGrab cubeGrab = new CubeGrab(pneumatics);
-  CubeRelease cubeRelease = new CubeRelease(pneumatics);
-  */
+  Pneumatics all_pneumatics = new Pneumatics();
+  ArmExtend armExtend = new ArmExtend(all_pneumatics);
+  ArmRetract armRetract = new ArmRetract(all_pneumatics);
+  ArmStop armStop = new ArmStop(all_pneumatics);
+  ConeGrab coneGrab = new ConeGrab(all_pneumatics);
+  ConeRelease coneRelease = new ConeRelease(all_pneumatics);
+  ConeStop coneStop = new ConeStop(all_pneumatics);
+  CubeGrab cubeGrab = new CubeGrab(all_pneumatics);
+  CubeRelease cubeRelease = new CubeRelease(all_pneumatics);
+  CubeStop cubeStop = new CubeStop(all_pneumatics);
+  
 
   //private PickupCargo pickupCargo = new PickupCargo(intake);
   //private ConveyorIn inConveyor = new ConveyorIn(conveyor);
@@ -79,6 +82,9 @@ public class RobotContainer
   {
     // Configure the button bindings
     configureButtonBindings();
+
+    all_pneumatics.ArmStop();
+    all_pneumatics.ConeStop();
   }
 
   /**
@@ -91,17 +97,23 @@ public class RobotContainer
   {
     //operator buttons
     //Gamepads.operator_A_Button.toggleWhenPressed(command)
-    Gamepads.operator_A_Button.whenHeld(lowerIntake);
-    Gamepads.operator_B_Button.whenHeld(raiseIntake);
-    //Gamepads.operator_X_Button.whenHeld(armExtend);
-    //Gamepads.operator_Y_Button.whenPressed(armRetract);
-    Gamepads.operator_leftShoulderButton.whenHeld(loadCargo);
-    Gamepads.operator_rightShoulderButton.whenHeld(shootCargo);
-    Gamepads.operator_backButton.whenHeld(lowerClimbers);
-    Gamepads.operator_startButton.whenHeld(raiseClimbers);
-    Gamepads.operator_leftStickButton.whenHeld(lowerIntake); 
-    Gamepads.operator_rightStickButton.whenHeld(raiseIntake); 
-    Gamepads.operator_leftStickButton.whenHeld(shootLow);
+    //Gamepads.operator_A_Button.whenHeld(lowerIntake);
+    //Gamepads.operator_B_Button.whenHeld(raiseIntake);
+    Gamepads.operator_X_Button.whenHeld(armExtend);
+    Gamepads.operator_Y_Button.whenHeld(armRetract);
+    Gamepads.operator_Y_Button.whenReleased(armStop);
+    Gamepads.operator_X_Button.whenReleased(armStop);
+    Gamepads.operator_A_Button.whenPressed(coneGrab);
+    Gamepads.operator_B_Button.whenPressed(coneRelease);
+    Gamepads.operator_A_Button.whenReleased(coneStop);
+    Gamepads.operator_B_Button.whenReleased(coneStop);
+    //Gamepads.operator_leftShoulderButton.whenHeld(loadCargo);
+    //Gamepads.operator_rightShoulderButton.whenHeld(shootCargo);
+    //Gamepads.operator_backButton.whenHeld(lowerClimbers);
+    //Gamepads.operator_startButton.whenHeld(raiseClimbers);
+    //Gamepads.operator_leftStickButton.whenHeld(lowerIntake); 
+    //Gamepads.operator_rightStickButton.whenHeld(raiseIntake); 
+    //Gamepads.operator_leftStickButton.whenHeld(shootLow);
 
     //driver buttons
     Gamepads.driver_rightShoulderButton.whenHeld(driveSlow);
@@ -152,6 +164,7 @@ public class RobotContainer
     climber.climberStop();
     climber.rightClimberStop();
     climber.leftClimberStop();
+    all_pneumatics.ArmStop();
   }
 
   //Setup 15 second autonomous mode with 1/2 second intervals

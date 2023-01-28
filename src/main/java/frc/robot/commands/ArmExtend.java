@@ -9,13 +9,13 @@ import frc.robot.subsystems.Pneumatics;
 
 public class ArmExtend extends CommandBase {
 
-  private Pneumatics pneumatics = new Pneumatics();
+  private final Pneumatics extendPneumatic;
 
   /** Creates a new BackIntakeRetract. */
   public ArmExtend(Pneumatics pneumatics) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.pneumatics = pneumatics;
-    addRequirements(this.pneumatics);
+    this.extendPneumatic = pneumatics;
+    addRequirements(this.extendPneumatic);
   }
 
   // Called when the command is initially scheduled.
@@ -25,7 +25,7 @@ public class ArmExtend extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    pneumatics.ArmExtend();
+    extendPneumatic.ArmExtend();
   }
 
   // Called once the command ends or is interrupted.

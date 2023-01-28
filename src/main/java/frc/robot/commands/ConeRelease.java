@@ -10,13 +10,13 @@ import frc.robot.subsystems.Pneumatics;
 
 public class ConeRelease extends CommandBase {
 
-  private Pneumatics pneumatics = new Pneumatics();
+  private final Pneumatics releasePneumatic;
 
   /** Creates a new BackIntakeRetract. */
   public ConeRelease(Pneumatics pneumatics) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.pneumatics = pneumatics;
-    addRequirements(this.pneumatics);
+    this.releasePneumatic = pneumatics;
+    addRequirements(this.releasePneumatic);
   }
 
   // Called when the command is initially scheduled.
@@ -26,7 +26,7 @@ public class ConeRelease extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    pneumatics.ConeRelease();
+    releasePneumatic.ConeRelease();
   }
 
   // Called once the command ends or is interrupted.

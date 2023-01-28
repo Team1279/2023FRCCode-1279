@@ -25,10 +25,10 @@ public final class Constants
     public static final class ControllerIDs
     {
         //This is where you can define the ID's for each motor controller on the robot
-        public static final int TALON_FRONT_RIGHT_DRIVE_ID = 1; 
-        public static final int TALON_REAR_RIGHT_DRIVE_ID = 2; 
-        public static final int TALON_FRONT_LEFT_DRIVE_ID = 3; 
-        public static final int TALON_REAR_LEFT_DRIVE_ID = 4; 
+        public static final int TALON_FRONT_RIGHT_DRIVE_ID = 15; 
+        public static final int TALON_REAR_RIGHT_DRIVE_ID = 16; 
+        public static final int TALON_FRONT_LEFT_DRIVE_ID = 17; 
+        public static final int TALON_REAR_LEFT_DRIVE_ID = 18; 
         public static final int FALCON_FRONT_RIGHT_DRIVE_ID = 17; //Falcon 500
         public static final int FALCON_REAR_RIGHT_DRIVE_ID = 16; //Falcon 500
         public static final int FALCON_FRONT_LEFT_DRIVE_ID = 15; //Falcon 500
@@ -54,8 +54,8 @@ public final class Constants
     public static final class PneumaticIDs
     {
         //This is where you can define the ID's for each pneumatic solenoid on the robot
-        public static final int ARM_EXTEND_ID = 0; //6
-        public static final int ARM_RETRACT_ID = 1; //7
+        public static final int ARM_EXTEND_ID = 6; //6
+        public static final int ARM_RETRACT_ID = 7; //7
         public static final int CONE_GRAB_ID = 4; 
         public static final int CONE_RELEASE_ID = 5;
         public static final int CUBE_GRAB_ID = 2; 

@@ -9,13 +9,13 @@ import frc.robot.subsystems.Pneumatics;
 
 public class CubeGrab extends CommandBase {
 
-  private Pneumatics pneumatics = new Pneumatics();
+  private final Pneumatics grabPneumatic;
 
   /** Creates a new BackIntakeRetract. */
   public CubeGrab(Pneumatics pneumatics) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.pneumatics = pneumatics;
-    addRequirements(this.pneumatics);
+    this.grabPneumatic = pneumatics;
+    addRequirements(this.grabPneumatic);
   }
 
   // Called when the command is initially scheduled.
@@ -25,7 +25,7 @@ public class CubeGrab extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    pneumatics.CubeGrab();
+    grabPneumatic.CubeGrab();
   }
 
   // Called once the command ends or is interrupted.

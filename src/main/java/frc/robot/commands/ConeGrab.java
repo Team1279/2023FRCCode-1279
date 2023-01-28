@@ -9,13 +9,13 @@ import frc.robot.subsystems.Pneumatics;
 
 public class ConeGrab extends CommandBase {
 
-  private Pneumatics pneumatics = new Pneumatics();
+  private final Pneumatics grabPneumatic;
 
   /** Creates a new BackIntakeRetract. */
   public ConeGrab(Pneumatics pneumatics) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.pneumatics = pneumatics;
-    addRequirements(this.pneumatics);
+    this.grabPneumatic = pneumatics;
+    addRequirements(this.grabPneumatic);
   }
 
   // Called when the command is initially scheduled.
@@ -25,7 +25,7 @@ public class ConeGrab extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    pneumatics.ConeGrab();
+    grabPneumatic.ConeGrab();
   }
 
   // Called once the command ends or is interrupted.

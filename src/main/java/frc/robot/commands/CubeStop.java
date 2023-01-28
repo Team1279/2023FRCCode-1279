@@ -8,15 +8,15 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Pneumatics;
 
 
-public class ArmRetract extends CommandBase {
+public class CubeStop extends CommandBase {
 
-  private final Pneumatics retractPneumatic;
+  private final Pneumatics stopPneumatic;
 
   /** Creates a new BackIntakeRetract. */
-  public ArmRetract(Pneumatics pneumatics) {
+  public CubeStop(Pneumatics pneumatics) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.retractPneumatic = pneumatics;
-    addRequirements(this.retractPneumatic);
+    this.stopPneumatic = pneumatics;
+    addRequirements(this.stopPneumatic);
   }
 
   // Called when the command is initially scheduled.
@@ -26,7 +26,7 @@ public class ArmRetract extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    retractPneumatic.ArmRetract();
+    stopPneumatic.CubeStop();
   }
 
   // Called once the command ends or is interrupted.
