@@ -33,6 +33,8 @@ public final class Constants
         public static final int FALCON_REAR_RIGHT_DRIVE_ID = 16; //Falcon 500
         public static final int FALCON_FRONT_LEFT_DRIVE_ID = 15; //Falcon 500
         public static final int FALCON_REAR_LEFT_DRIVE_ID = 14; //Falcon 500
+
+        public static final int WRIST_DRIVE_ID = 9; 
         
         public static final int CONVEYOR_DRIVE_ID = 5;
         public static final int ARM_DRIVE_ID = 6; 
@@ -89,6 +91,8 @@ public final class Constants
 
     public static final class Switches
     {
+        public static int wristUpperLimitSwitch = 8;
+        public static int wristLowerLimitSwitch = 9;
         public static int armUpperLimitSwitch = 0;
         public static int armLowerLimitSwitch = 1;
         public static int autonomousSettingSwitch = 2;

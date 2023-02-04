@@ -31,6 +31,8 @@ public class RobotContainer
   //private final DriveTrain m_robotDrive = new DriveTrain();
   public static DriveTrain m_robotDrive = new DriveTrain();
 
+  public static WristSubsystem wrist = new WristSubsystem();
+
   public static ClimberSubsystem climber = new ClimberSubsystem();
   public static ConveyorSubsystem conveyor = new ConveyorSubsystem();
   public static IntakeSubsystem intake = new IntakeSubsystem();
@@ -50,7 +52,8 @@ public class RobotContainer
   CubeRelease cubeRelease = new CubeRelease(all_pneumatics);
   CubeStop cubeStop = new CubeStop(all_pneumatics);
   
-
+  private RaiseWrist raiseWrist = new RaiseWrist(wrist);
+  private LowerWrist lowerWrist = new LowerWrist(wrist);
   //private PickupCargo pickupCargo = new PickupCargo(intake);
   //private ConveyorIn inConveyor = new ConveyorIn(conveyor);
   private EjectCargo ejectCargo = new EjectCargo(intake, conveyor, shooter);
@@ -96,19 +99,16 @@ public class RobotContainer
   private void configureButtonBindings()
   {
     //operator buttons
-    //Gamepads.operator_A_Button.toggleWhenPressed(command)
-    //Gamepads.operator_A_Button.whenHeld(lowerIntake);
-    //Gamepads.operator_B_Button.whenHeld(raiseIntake);
-    Gamepads.operator_X_Button.whenHeld(armExtend);
-    Gamepads.operator_Y_Button.whenHeld(armRetract);
+    Gamepads.operator_X_Button.whileHeld(armExtend);
+    Gamepads.operator_Y_Button.whileHeld(armRetract);
     Gamepads.operator_Y_Button.whenReleased(armStop);
     Gamepads.operator_X_Button.whenReleased(armStop);
-    Gamepads.operator_A_Button.whenPressed(coneGrab);
-    Gamepads.operator_B_Button.whenPressed(coneRelease);
-    Gamepads.operator_A_Button.whenReleased(coneStop);
-    Gamepads.operator_B_Button.whenReleased(coneStop);
-    //Gamepads.operator_leftShoulderButton.whenHeld(loadCargo);
-    //Gamepads.operator_rightShoulderButton.whenHeld(shootCargo);
+    Gamepads.operator_A_Button.whileHeld(raiseWrist);
+    Gamepads.operator_B_Button.whileHeld(lowerWrist);
+    Gamepads.operator_leftShoulderButton.whileHeld(coneGrab);
+    Gamepads.operator_rightShoulderButton.whileHeld(coneRelease);
+    Gamepads.operator_leftShoulderButton.whenReleased(coneStop);
+    Gamepads.operator_rightShoulderButton.whenReleased(coneStop);
     //Gamepads.operator_backButton.whenHeld(lowerClimbers);
     //Gamepads.operator_startButton.whenHeld(raiseClimbers);
     //Gamepads.operator_leftStickButton.whenHeld(lowerIntake); 

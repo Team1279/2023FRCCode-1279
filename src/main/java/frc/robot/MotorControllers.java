@@ -45,6 +45,8 @@ public class MotorControllers
     /******************************/
     /* Game component controllers */
     /******************************/
+    //Wrist
+    public static WPI_TalonFX WristMotor = new WPI_TalonFX(Constants.ControllerIDs.WRIST_DRIVE_ID);
     //Shooter
     public static WPI_TalonFX ShooterMotor = new WPI_TalonFX(Constants.ControllerIDs.SHOOTER_DRIVE_ID);
     //Conveyor Belt
@@ -78,6 +80,9 @@ public class MotorControllers
     /*******************************/
     /* LIMIT SWITCH CONFIGURATIONS */
     /*******************************/
+    public static DigitalInput upperLimitSwitchForWrist = new DigitalInput(Constants.Switches.wristUpperLimitSwitch);
+    public static DigitalInput lowerLimitSwitchForWrist = new DigitalInput(Constants.Switches.wristLowerLimitSwitch);
+
     public static DigitalInput upperLimitSwitchForArm = new DigitalInput(Constants.Switches.armUpperLimitSwitch);
     public static DigitalInput lowerLimitSwitchForArm = new DigitalInput(Constants.Switches.armLowerLimitSwitch);
 
