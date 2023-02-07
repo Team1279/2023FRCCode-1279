@@ -167,184 +167,95 @@ public class RobotContainer
     all_pneumatics.ArmStop();
   }
 
-  //Setup 15 second autonomous mode with 1/2 second intervals
+  //Setup 15 second autonomous mode with variable intervals
   public void driveAuto2(Timer timer)
   { 
-    //Shoot Cargo
-    if (timer.get() >= 0.2 && timer.get() < 2.0)
+    //Raise Arms
+    if (timer.get() >= 0.1 && timer.get() < 2.0)
     {
-      autoShootCargo.execute();
+      armExtend.execute();
     }
     
-    //Stop Shooting Cargo
-    if (timer.get() >= 2.0 && timer.get() < 2.1)
+    //Lower Wrist
+    if (timer.get() >= 2.0 && timer.get() < 3.0)
     {
-      //autoShootCargo.cancel();
-      autoShootCargo.end(true);
+      lowerWrist.execute();
     } 
     
-    //Drive backwards
-    if (timer.get() >= 2.0 && timer.get() < 2.2)
+    //Drive forward
+    if (timer.get() >= 3.0 && timer.get() < 4.0)
+    {
+      lowerWrist.cancel();
+      wrist.wristStop();
+      m_robotDrive.driveForward();
+    } 
+    
+    //Lower Wrist
+    if (timer.get() >= 4.0 && timer.get() < 4.4)
+    {
+      lowerWrist.execute();
+    } 
+    
+    //Release Cone
+    if (timer.get() >= 4.4 && timer.get() < 5.4)
+    {
+      lowerWrist.cancel();
+      wrist.wristStop();
+      coneRelease.execute();
+    } 
+    
+    //Drive Backwards
+    if (timer.get() >= 5.4 && timer.get() < 6.4)
     {
       m_robotDrive.driveBackward();
-    } 
-    
-    //Lower Intake Arms
-    if (timer.get() >= 2.2 && timer.get() < 4.6)
-    {
-      lowerIntake.execute();
-    } 
-    
-    //Stop Intake Arms
-    if (timer.get() >= 4.6 && timer.get() < 4.7)
-    {
-      //lowerIntake.cancel();
-      lowerIntake.end(true);
-    } 
-    
-    //Load Cargo
-    if (timer.get() >= 4.0 && timer.get() < 9.0)
-    {
-      loadCargo.execute();
     }
     
-    //Stop Loading Cargo
-    if (timer.get() >= 9.0 && timer.get() < 9.1)
+    //Raise Wrist
+    if (timer.get() >= 6.4 && timer.get() < 7.8)
     {
-      //loadCargo.cancel();
-      loadCargo.end(true);
+      raiseWrist.execute();
     }
     
-    //Turn Robot Right (0.6 secs is 180 degrees)
-    if (timer.get() >= 3.0 && timer.get() < 5.1)
+    //Lower Arms
+    if (timer.get() >= 7.8 && timer.get() < 9.8)
     {
-      if (autoSetting == 0)
-      {
+      raiseWrist.cancel();
+      wrist.wristStop();
+      //if (autoSetting == 0)
+      //{
         //System.out.println("Setting Switch = 0");
-        m_robotDrive.turnRobotRight();
-      } else {
+        //m_robotDrive.turnRobotRight();
+      //} else {
         //System.out.println("Setting Switch = 1");
-        m_robotDrive.turnRobotLeft();
-      }
+        armRetract.execute();
+      //}
     }
 
-    //Stop Turning
-    if (timer.get() >= 5.1 && timer.get() < 5.2)
+    //Drive Backwards
+    if (timer.get() >= 9.8 && timer.get() < 12.8)
     {
-      m_robotDrive.stopDriving();
+      m_robotDrive.driveBackward();
     } 
     
     //Drive Robot Forward
-    if (timer.get() >= 5.4 && timer.get() < 7.0)
+    if (timer.get() >= 12.8 && timer.get() < 13.8)
     {
       m_robotDrive.driveForward();
     } 
     
     //Stop Driving Forward
-    if (timer.get() >= 7.0 && timer.get() < 7.1)
-    {
-      m_robotDrive.stopDriving();
-    } 
-
-    //Drive Robot Backward
-    if (timer.get() >= 7.2 && timer.get() < 7.8)
-    {
-      m_robotDrive.driveBackward();
-    } 
-    
-    //Stop Driving Forward
-    if (timer.get() >= 7.8 && timer.get() < 7.9)
+    if (timer.get() >= 13.8 && timer.get() < 14.0)
     {
       m_robotDrive.stopDriving();
     } 
     
-    //Turn Robot Left
-    if (timer.get() >= 8.0 && timer.get() < 10.3)
-    {
-      //m_robotDrive.turnRobotLeft();
-
-      if (autoSetting == 0)
-      {
-        m_robotDrive.turnRobotLeft();
-        //System.out.println("Setting Switch = 0");
-      } else {
-        m_robotDrive.turnRobotRight();
-        //System.out.println("Setting Switch = 1");
-      }
-    } 
-    
-    //Raise Intake Arm
-    if (timer.get() >= 8.0 && timer.get() < 10.4)
-    {
-      raiseIntake.execute();
-    } 
-    
-    //Stop Turning Left
-    if (timer.get() >= 10.3 && timer.get() < 10.4)
-    {
-      m_robotDrive.stopDriving();
-    } 
-    
-    //Drive Forward (back to shooting position)
-    if (timer.get() >= 10.4 && timer.get() < 13.1)
-    {
-      m_robotDrive.driveForward();
-    } 
-    
-    //Stop Driving Forward
-    if (timer.get() >= 13.1 && timer.get() < 13.2)
-    {
-      m_robotDrive.stopDriving();
-    } 
-    
-    //Lower Intake Arm
-    if (timer.get() >= 11.0 && timer.get() < 11.7)
-    {
-      lowerIntake.execute();
-    }
-
-    //Stop Lowering Intake Arm
-    if (timer.get() >= 12.0 && timer.get() < 12.1)
-    {
-      lowerIntake.end(true);
-    }
-
-    //Shoot Cargo
-    if (timer.get() >= 12.5 && timer.get() < 14.9)
-    {
-      autoShootCargo.execute();
-    } 
-    
-    //Stop Shooting Cargo
-    if (timer.get() >= 14.9 && timer.get() < 15.0)
-    {
-      //autoShootCargo.cancel();
-      autoShootCargo.end(true);
-    } 
-    /*
-    //Drive Robot Backwards (Out of Tarmak)
-    if (timer.get() >= 14.6 && timer.get() < 15.6)
-    {
-      m_robotDrive.driveBackward();
-    } 
-    
-    //Stop Driving Robot Backwards
-    if (timer.get() >= 15.6 && timer.get() < 15.7)
-    {
-      m_robotDrive.stopDriving();
-    }
-*/
     //Stop All Motors
-    if (timer.get() >= 14.9)
+    if (timer.get() >= 14.0)
     {
       m_robotDrive.drive.arcadeDrive(0, 0);
       m_robotDrive.drive.feed();
       m_robotDrive.stopDriving();
-      conveyor.conveyorStop();
-      intake.armStop();
-      intake.intakeStop();
-      shooter.shooterStop();
-      climber.climberStop();
+      wrist.wristStop();
     }
     
   }

@@ -97,7 +97,7 @@ public class DriveTrain extends SubsystemBase
         // This method will be called once per scheduler run
     }
 
-    private static int inverse = 1;
+    private static int inverse = -1;
     private double modifier = 1;
 
     //static Joystick driverStick = Constants.DriverAndOperatorJoystick.driverStick;
@@ -136,13 +136,13 @@ public class DriveTrain extends SubsystemBase
 
     public void turnRobotRight() 
     {
-        drive.arcadeDrive(0, 0.4);
+        drive.arcadeDrive(0, -0.4);
         drive.feed();
     }
 
     public void turnRobotLeft() 
     {
-        drive.arcadeDrive(0, -0.4);
+        drive.arcadeDrive(0, 0.4);
         drive.feed();
     }
 
@@ -163,7 +163,7 @@ public class DriveTrain extends SubsystemBase
      */
     public void setDirectionForward() 
     { // hatch side
-        inverse = 1;
+        inverse = -1;
     }
 
     /**
@@ -172,7 +172,7 @@ public class DriveTrain extends SubsystemBase
      */
     public void setDirectionBack() 
     { // cargo side
-        inverse = -1;
+        inverse = 1;
     }
 
     /**
