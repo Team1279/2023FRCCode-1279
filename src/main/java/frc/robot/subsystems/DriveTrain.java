@@ -97,7 +97,7 @@ public class DriveTrain extends SubsystemBase
         // This method will be called once per scheduler run
     }
 
-    private static int inverse = -1;
+    private static int inverse = 1;
     private double modifier = 1;
 
     //static Joystick driverStick = Constants.DriverAndOperatorJoystick.driverStick;

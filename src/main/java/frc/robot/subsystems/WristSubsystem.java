@@ -24,7 +24,7 @@ public class WristSubsystem extends SubsystemBase
   {
     if (MotorControllers.upperLimitSwitchForWrist.get())
     {
-      MotorControllers.WristMotor.set(ControlMode.PercentOutput, 0.75);
+      MotorControllers.WristMotor.set(ControlMode.PercentOutput, 0.8);
     } else {
       MotorControllers.WristMotor.stopMotor();
     }
@@ -34,7 +34,7 @@ public class WristSubsystem extends SubsystemBase
   {
     if (MotorControllers.lowerLimitSwitchForWrist.get())
     {
-      MotorControllers.WristMotor.set(ControlMode.PercentOutput, -0.5);
+      MotorControllers.WristMotor.set(ControlMode.PercentOutput, -0.8);
     } else {
       MotorControllers.WristMotor.stopMotor();
     }
