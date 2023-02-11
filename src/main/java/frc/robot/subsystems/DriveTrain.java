@@ -98,7 +98,7 @@ public class DriveTrain extends SubsystemBase
     }
 
     private static int inverse = 1;
-    private double modifier = 1;
+    private double modifier = Constants.DriveTrain.driveSpeed;
 
     //static Joystick driverStick = Constants.DriverAndOperatorJoystick.driverStick;
     static Joystick driverStick = Gamepads.driverJoyStick;
@@ -182,7 +182,7 @@ public class DriveTrain extends SubsystemBase
      */
     public void slowSpeed() 
     {
-        modifier = 0.6; // 60%
+        modifier = 0.4; // 40%
     }
 
     /**
@@ -191,7 +191,17 @@ public class DriveTrain extends SubsystemBase
      */
     public void normalSpeed() 
     {
-        modifier = 1; // 100%
+        modifier = Constants.DriveTrain.driveSpeed;
+    }
+
+    /**
+     * This speeds up the drive train
+     * Drives it at 100%
+     * Multiplies the drive train by 0.6
+     */
+    public void fastSpeed() 
+    {
+        modifier = 1.0; // 100%
     }
 
     /**

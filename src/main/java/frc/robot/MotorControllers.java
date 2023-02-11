@@ -26,7 +26,7 @@ public class MotorControllers
     /***********************************************/
     /* For competition drive train w/ Falcon 500's */
     /***********************************************/
-    /*  
+    /* 
     public static WPI_TalonFX frontLeft = new WPI_TalonFX(Constants.ControllerIDs.FALCON_FRONT_LEFT_DRIVE_ID);
     public static WPI_TalonFX rearLeft = new WPI_TalonFX(Constants.ControllerIDs.FALCON_REAR_LEFT_DRIVE_ID);
     public static WPI_TalonFX frontRight = new WPI_TalonFX(Constants.ControllerIDs.FALCON_FRONT_RIGHT_DRIVE_ID);
@@ -35,7 +35,7 @@ public class MotorControllers
     /***********************************************/
     /* For practice drive train w/ Sims and Talons */
     /***********************************************/
-    
+     
     public static WPI_TalonSRX frontLeft = new WPI_TalonSRX(Constants.ControllerIDs.TALON_FRONT_LEFT_DRIVE_ID);
     public static WPI_TalonSRX rearLeft = new WPI_TalonSRX(Constants.ControllerIDs.TALON_REAR_LEFT_DRIVE_ID);
     public static WPI_TalonSRX frontRight = new WPI_TalonSRX(Constants.ControllerIDs.TALON_FRONT_RIGHT_DRIVE_ID);

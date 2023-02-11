@@ -16,6 +16,9 @@ import edu.wpi.first.wpilibj.Timer; //used for Autonomous Mode
 //import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.cscore.UsbCamera;
+
+import com.fasterxml.jackson.databind.ser.impl.FailingSerializer;
+
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.VideoSource;
 //import edu.wpi.first.cameraserver.*;
@@ -180,7 +183,7 @@ public class Robot extends TimedRobot
     // adjust these so that when the stick is forward both of these are green
     MotorControllers.frontLeft.setInverted(false);
     MotorControllers.rearLeft.setInverted(false);
-    MotorControllers.frontRight.setInverted(true); 
+    MotorControllers.frontRight.setInverted(false); 
     MotorControllers.rearRight.setInverted(true);
 
     MotorControllers.frontLeft.setSafetyEnabled(false);

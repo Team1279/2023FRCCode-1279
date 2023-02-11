@@ -33,10 +33,8 @@ public class RobotContainer
 
   public static WristSubsystem wrist = new WristSubsystem();
 
-  public static ClimberSubsystem climber = new ClimberSubsystem();
-  public static ConveyorSubsystem conveyor = new ConveyorSubsystem();
-  public static IntakeSubsystem intake = new IntakeSubsystem();
-  public static ShooterSubsystem shooter = new ShooterSubsystem();
+  //public static ClimberSubsystem climber = new ClimberSubsystem();
+  //public static IntakeSubsystem intake = new IntakeSubsystem();
   public static MotorControllers motors = new MotorControllers();
 
    
@@ -56,20 +54,22 @@ public class RobotContainer
   private LowerWrist lowerWrist = new LowerWrist(wrist);
   //private PickupCargo pickupCargo = new PickupCargo(intake);
   //private ConveyorIn inConveyor = new ConveyorIn(conveyor);
-  private EjectCargo ejectCargo = new EjectCargo(intake, conveyor, shooter);
-  private LoadCargo loadCargo = new LoadCargo(intake, conveyor);
-  private LowerClimbers lowerClimbers = new LowerClimbers(climber);
-  private RaiseClimbers raiseClimbers = new RaiseClimbers(climber);
+  //private EjectCargo ejectCargo = new EjectCargo(intake, conveyor, shooter);
+  //private LoadCargo loadCargo = new LoadCargo(intake, conveyor);
+  //private LowerClimbers lowerClimbers = new LowerClimbers(climber);
+  //private RaiseClimbers raiseClimbers = new RaiseClimbers(climber);
   //private RaiseLeftClimber raiseLeftClimber = new RaiseLeftClimber(climber);
   //private RaiseRightClimber raiseRightClimber = new RaiseRightClimber(climber);
-  private RaiseIntake raiseIntake = new RaiseIntake(intake);
-  private LowerIntake lowerIntake = new LowerIntake(intake);
-  private ShootCargo shootCargo = new ShootCargo(shooter, conveyor);
-  private AutoShootCargo autoShootCargo = new AutoShootCargo(shooter, conveyor);
+  //private RaiseIntake raiseIntake = new RaiseIntake(intake);
+  //private LowerIntake lowerIntake = new LowerIntake(intake);
+  //private ShootCargo shootCargo = new ShootCargo(shooter, conveyor);
+  //private AutoShootCargo autoShootCargo = new AutoShootCargo(shooter, conveyor);
   private DriveSlow driveSlow = new DriveSlow(m_robotDrive);
-  private ShootLow shootLow = new ShootLow(shooter);
+  private DriveFast driveFast = new DriveFast(m_robotDrive);
+  //private ShootLow shootLow = new ShootLow(shooter);
 
-  private YButtonPressed yButton = new YButtonPressed(m_robotDrive);
+  //private SlowButtonPressed slowButton = new SlowButtonPressed(m_robotDrive);
+  //private FastButtonPressed fastButton = new FastButtonPressed(m_robotDrive);
 
   static Joystick operatorStick = Gamepads.operatorJoyStick;
 
@@ -117,6 +117,7 @@ public class RobotContainer
 
     //driver buttons
     Gamepads.driver_rightShoulderButton.whenHeld(driveSlow);
+    Gamepads.driver_leftShoulderButton.whenHeld(driveFast);
   }
 
   /**
@@ -157,13 +158,14 @@ public class RobotContainer
   {
     m_robotDrive.drive.arcadeDrive(0, 0);
     m_robotDrive.drive.feed();
-    conveyor.conveyorStop();
-    intake.armStop();
-    intake.intakeStop();
-    shooter.shooterStop();
-    climber.climberStop();
-    climber.rightClimberStop();
-    climber.leftClimberStop();
+    //conveyor.conveyorStop();
+    //intake.armStop();
+    //intake.intakeStop();
+    //shooter.shooterStop();
+    //climber.climberStop();
+    //climber.rightClimberStop();
+    //climber.leftClimberStop();
+    wrist.wristStop();
     all_pneumatics.ArmStop();
   }
 
@@ -258,278 +260,5 @@ public class RobotContainer
       wrist.wristStop();
     }
     
-  }
-
-  //Setup 15 second autonomous mode with 1/2 second intervals
-  public void driveAuto1(Timer timer)
-  {
-    if (timer.get() < 0.2)
-    {
-      autoShootCargo.execute();
-    } else if (timer.get() >= 0.2 && timer.get() < 0.4)
-    {
-      autoShootCargo.execute();
-    } else if (timer.get() >= 0.4 && timer.get() < 0.6)
-    {
-      autoShootCargo.execute();
-    } else if (timer.get() >= 0.6 && timer.get() < 0.8)
-    {
-      autoShootCargo.execute();
-    } else if (timer.get() >= 0.8 && timer.get() < 1.0)
-    {
-      autoShootCargo.execute();
-    } else if (timer.get() >= 1.0 && timer.get() < 1.2)
-    {
-      autoShootCargo.execute();  
-    } else if (timer.get() >= 1.2 && timer.get() < 1.4)
-    {
-      autoShootCargo.execute();
-    } else if (timer.get() >= 1.4 && timer.get() < 1.6)
-    {
-      autoShootCargo.execute();
-    } else if (timer.get() >= 1.6 && timer.get() < 1.8)
-    {
-      autoShootCargo.execute();
-    } else if (timer.get() >= 1.8 && timer.get() < 2.0)
-    {
-      autoShootCargo.execute();
-    } else if (timer.get() >= 2.0 && timer.get() < 2.2)
-    {
-      //autoShootCargo.cancel();
-      autoShootCargo.end(true);
-      m_robotDrive.driveBackward();
-    } else if (timer.get() >= 2.2 && timer.get() < 2.4)
-    {
-      //m_robotDrive.driveBackward();
-    } else if (timer.get() >= 2.4 && timer.get() < 2.6)
-    {
-      //m_robotDrive.driveBackward();
-    } else if (timer.get() >= 2.6 && timer.get() < 2.8)
-    {
-      //m_robotDrive.driveBackward();
-    } else if (timer.get() >= 2.8 && timer.get() < 3.0)
-    {
-      //m_robotDrive.driveBackward();
-    } else if (timer.get() >= 3.0 && timer.get() < 3.2)
-    {
-      //m_robotDrive.stopDriving();
-      m_robotDrive.turnRobotLeft();
-      lowerIntake.execute();
-    } else if (timer.get() >= 3.2 && timer.get() < 3.4)
-    {
-      m_robotDrive.turnRobotLeft();
-      lowerIntake.execute();
-    } else if (timer.get() >= 3.4 && timer.get() < 3.6)
-    {
-      m_robotDrive.turnRobotLeft();
-      lowerIntake.execute();
-    } else if (timer.get() >= 3.6 && timer.get() < 3.8)
-    {
-      m_robotDrive.turnRobotLeft();
-      lowerIntake.execute();
-    } else if (timer.get() >= 3.8 && timer.get() < 4.0)
-    {
-      m_robotDrive.turnRobotLeft();
-      lowerIntake.execute();
-    } else if (timer.get() >= 4.0 && timer.get() < 4.2)
-    {
-      //m_robotDrive.stopDriving();
-      m_robotDrive.turnRobotLeft();
-      lowerIntake.execute();
-      loadCargo.execute();
-    } else if (timer.get() >= 4.2 && timer.get() < 4.3)
-    {
-      //m_robotDrive.stopDriving();
-      m_robotDrive.turnRobotLeft();
-      lowerIntake.execute();
-      loadCargo.execute();
-    } else if (timer.get() >= 4.3 && timer.get() < 4.6)
-    {
-      m_robotDrive.stopDriving();
-      //m_robotDrive.turnRobotLeft();
-      lowerIntake.execute();
-      loadCargo.execute();
-    } else if (timer.get() >= 4.6 && timer.get() < 4.8)
-    {
-      //m_robotDrive.turnRobotLeft();
-      loadCargo.execute();
-    } else if (timer.get() >= 4.8 && timer.get() < 5.0)
-    {
-      m_robotDrive.driveForward();
-      loadCargo.execute();
-    } else if (timer.get() >= 5.0 && timer.get() < 5.2)
-    {
-      m_robotDrive.driveForward();
-      loadCargo.execute();
-    } else if (timer.get() >= 5.2 && timer.get() < 5.3)
-    {
-      m_robotDrive.driveForward();
-      //m_robotDrive.stopDriving();
-      loadCargo.execute();
-    } else if (timer.get() >= 5.3 && timer.get() < 5.6)
-    {
-      //m_robotDrive.driveForward();
-      m_robotDrive.stopDriving();
-      loadCargo.execute();
-    } else if (timer.get() >= 5.6 && timer.get() < 5.8)
-    {
-      //m_robotDrive.driveForward();
-      loadCargo.execute();
-    } else if (timer.get() >= 5.8 && timer.get() < 6.0)
-    {
-      //m_robotDrive.driveForward();
-      loadCargo.execute();
-    } else if (timer.get() >= 6.0 && timer.get() < 6.2)
-    {
-      //m_robotDrive.driveForward();
-      loadCargo.execute();
-    } else if (timer.get() >= 6.2 && timer.get() < 6.4)
-    {
-      //m_robotDrive.driveForward();
-      loadCargo.execute();
-    } else if (timer.get() >= 6.4 && timer.get() < 6.6)
-    {
-      m_robotDrive.turnRobotRight();
-      loadCargo.execute();
-    } else if (timer.get() >= 6.6 && timer.get() < 6.8)
-    {
-      m_robotDrive.turnRobotRight();
-      raiseIntake.execute();
-    } else if (timer.get() >= 6.8 && timer.get() < 7.0)
-    {
-      m_robotDrive.turnRobotRight();
-      raiseIntake.execute();
-    } else if (timer.get() >= 7.0 && timer.get() < 7.2)
-    {
-      m_robotDrive.turnRobotRight();
-      raiseIntake.execute();
-    } else if (timer.get() >= 7.2 && timer.get() < 7.4)
-    {
-      m_robotDrive.stopDriving();
-      //m_robotDrive.turnRobotRight();
-      raiseIntake.execute();
-    } else if (timer.get() >= 7.4 && timer.get() < 7.6)
-    {
-      //m_robotDrive.stopDriving();
-      //m_robotDrive.turnRobotRight();
-      raiseIntake.execute();
-    } else if (timer.get() >= 7.6 && timer.get() < 7.8)
-    {
-      //m_robotDrive.stopDriving();
-      //m_robotDrive.turnRobotRight();
-    } else if (timer.get() >= 7.8 && timer.get() < 8.0)
-    {
-      m_robotDrive.driveForward();
-    } else if (timer.get() >= 8.0 && timer.get() < 8.2)
-    {
-      m_robotDrive.driveForward();
-    } else if (timer.get() >= 8.2 && timer.get() < 8.4)
-    {
-      m_robotDrive.driveForward();
-    } else if (timer.get() >= 8.4 && timer.get() < 8.6)
-    {
-      m_robotDrive.driveForward();
-    } else if (timer.get() >= 8.6 && timer.get() < 8.8)
-    {
-      m_robotDrive.driveForward();
-    } else if (timer.get() >= 8.8 && timer.get() < 9.0)
-    {
-      m_robotDrive.driveForward();
-    } else if (timer.get() >= 9.0 && timer.get() < 9.2)
-    {
-      m_robotDrive.driveForward();
-    } else if (timer.get() >= 9.2 && timer.get() < 9.4)
-    {
-      m_robotDrive.driveForward();
-    } else if (timer.get() >= 9.4 && timer.get() < 9.6)
-    {
-      //m_robotDrive.driveForward();
-    } else if (timer.get() >= 9.6 && timer.get() < 9.8)
-    {
-      //m_robotDrive.driveForward();
-    } else if (timer.get() >= 9.8 && timer.get() < 10.0)
-    {
-      autoShootCargo.execute();
-    } else if (timer.get() >= 10.0 && timer.get() < 10.2)
-    {
-      autoShootCargo.execute();
-    } else if (timer.get() >= 10.2 && timer.get() < 10.4)
-    {
-      autoShootCargo.execute();
-    } else if (timer.get() >= 10.4 && timer.get() < 10.6)
-    {
-      autoShootCargo.execute();
-    } else if (timer.get() >= 10.6 && timer.get() < 10.8)
-    {
-      autoShootCargo.execute();
-    } else if (timer.get() >= 10.8 && timer.get() < 11.0)
-    {
-      autoShootCargo.execute();
-    } else if (timer.get() >= 11.0 && timer.get() < 11.2)
-    {
-      autoShootCargo.execute();
-    } else if (timer.get() >= 11.2 && timer.get() < 11.4)
-    {
-      autoShootCargo.execute();
-    } else if (timer.get() >= 11.4 && timer.get() < 11.6)
-    {
-      autoShootCargo.execute();
-    } else if (timer.get() >= 11.6 && timer.get() < 11.8)
-    {
-      autoShootCargo.execute();
-    } else if (timer.get() >= 11.8 && timer.get() < 12.0)
-    {
-      //autoShootCargo.cancel();
-      autoShootCargo.end(true);
-      m_robotDrive.driveBackward();
-    } else if (timer.get() >= 12.0 && timer.get() < 12.2)
-    {
-      m_robotDrive.driveBackward();
-    } else if (timer.get() >= 12.2 && timer.get() < 12.4)
-    {
-      m_robotDrive.driveBackward();
-    } else if (timer.get() >= 12.4 && timer.get() < 12.6)
-    {
-      m_robotDrive.driveBackward();
-    } else if (timer.get() >= 12.6 && timer.get() < 12.8)
-    {
-      m_robotDrive.driveBackward();
-    } else if (timer.get() >= 12.8 && timer.get() < 13.0)
-    {
-      //m_robotDrive.driveBackward();
-    } else if (timer.get() >= 13.0 && timer.get() < 13.2)
-    {
-      //m_robotDrive.driveBackward();
-    } else if (timer.get() >= 13.2 && timer.get() < 13.4)
-    {
-      //m_robotDrive.driveBackward();
-    } else if (timer.get() >= 13.4 && timer.get() < 13.6)
-    {
-      //m_robotDrive.driveBackward();
-    } else if (timer.get() >= 13.6 && timer.get() < 13.8)
-    {
-      //m_robotDrive.driveBackward();
-    } else if (timer.get() >= 13.8 && timer.get() < 14.0)
-    {
-    } else if (timer.get() >= 14.0 && timer.get() < 14.2)
-    {
-    } else if (timer.get() >= 14.2 && timer.get() < 14.4)
-    {
-    } else if (timer.get() >= 14.4 && timer.get() < 14.6)
-    {
-    } else if (timer.get() >= 14.6 && timer.get() < 14.8)
-    {
-    } else if (timer.get() >= 14.8 && timer.get() < 15)
-    {
-    } else {
-      m_robotDrive.drive.arcadeDrive(0, 0);
-      m_robotDrive.drive.feed();
-      m_robotDrive.stopDriving();
-      conveyor.conveyorStop();
-      intake.armStop();
-      intake.intakeStop();
-      shooter.shooterStop();
-      climber.climberStop();
-    }
   }
 }

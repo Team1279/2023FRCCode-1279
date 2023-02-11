@@ -6,7 +6,7 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.RobotContainer;
 import frc.robot.MotorControllers;
 
-public class YButtonPressed extends CommandBase
+public class SlowButtonPressed extends CommandBase
 {
   private final DriveTrain driveTrain;
 
@@ -14,7 +14,7 @@ public class YButtonPressed extends CommandBase
   /**
    * Creates a new KickerIn. This is the motor that allows for the Power Cells to go to the shooter
    */
-  public YButtonPressed(DriveTrain DT)
+  public SlowButtonPressed(DriveTrain DT)
   {
     driveTrain = DT;
     // Use addRequirements() here to declare subsystem dependencies.
