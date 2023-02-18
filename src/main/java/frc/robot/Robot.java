@@ -225,7 +225,7 @@ public class Robot extends TimedRobot
     //}
     //System.out.println("Robot Timer: " + timer.get());
     //m_robotContainer.driveAuto1(timer);
-    m_robotContainer.driveAuto2(timer);
+    m_robotContainer.driveAuto(timer);
   }
 
   /** This function is called once when teleop is enabled. */

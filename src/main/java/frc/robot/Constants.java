@@ -25,10 +25,10 @@ public final class Constants
     public static final class ControllerIDs
     {
         //This is where you can define the ID's for each motor controller on the robot
-        public static final int TALON_FRONT_RIGHT_DRIVE_ID = 21; 
-        public static final int TALON_REAR_RIGHT_DRIVE_ID = 20; 
-        public static final int TALON_FRONT_LEFT_DRIVE_ID = 19; 
-        public static final int TALON_REAR_LEFT_DRIVE_ID = 18; 
+        public static final int TALON_FRONT_RIGHT_DRIVE_ID = 17; //21; 
+        public static final int TALON_REAR_RIGHT_DRIVE_ID = 16; //20; 
+        public static final int TALON_FRONT_LEFT_DRIVE_ID = 15; //19; 
+        public static final int TALON_REAR_LEFT_DRIVE_ID = 14; //18; 
         public static final int FALCON_FRONT_RIGHT_DRIVE_ID = 17; //Falcon 500
         public static final int FALCON_REAR_RIGHT_DRIVE_ID = 16; //Falcon 500
         public static final int FALCON_FRONT_LEFT_DRIVE_ID = 15; //Falcon 500

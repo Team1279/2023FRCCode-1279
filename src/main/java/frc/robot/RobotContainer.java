@@ -139,41 +139,79 @@ public class RobotContainer
   }
 
   //Setup 15 second autonomous mode with variable intervals
-  public void driveAuto2(Timer timer)
+  public void driveAuto(Timer timer)
   { 
     //Raise Arms
-    if (timer.get() >= 0.1 && timer.get() < 20.0)
-    {
-      //m_robotDrive.turnRobotRight();
-    }
-
     if (timer.get() >= 0.1 && timer.get() < 2.0)
     {
       armExtend.execute();
     }
     
     //Lower Wrist
-    if (timer.get() >= 2.0 && timer.get() < 3.0)
+    if (timer.get() >= 2.2 && timer.get() < 3.0)
     {
       lowerWrist.execute();
+    }
+
+    //Stop Wrist
+    if (timer.get() >= 3.0 && timer.get() < 3.1)
+    {
+      lowerWrist.cancel();
+      wrist.wristStop();
+    }
+    
+    //Raise Wrist to Goal Height
+    if (timer.get() >= 3.4 && timer.get() < 4.2)
+    {
+      raiseWrist.execute();
     } 
     
+    //Stop Wrist
+    if (timer.get() >= 4.2 && timer.get() < 4.3)
+    {
+      raiseWrist.cancel();
+      wrist.wristStop();
+    }
+
+    /*
+    //Raise Wrist to Goal Height
+    if (timer.get() >= 3.0 && timer.get() < 3.2)
+    {
+      raiseWrist.execute();
+    } 
+
+    //Stop Wrist
+    if (timer.get() >= 3.2 && timer.get() < 4.0)
+    {
+      raiseWrist.cancel();
+      wrist.wristStop();
+    }
+    */
+    
     //Drive forward
-    if (timer.get() >= 3.0 && timer.get() < 4.0)
+    
+    if (timer.get() >= 4.3 && timer.get() < 4.85)
     {
       lowerWrist.cancel();
       wrist.wristStop();
       m_robotDrive.driveForward();
     } 
     
-    //Lower Wrist
-    if (timer.get() >= 4.0 && timer.get() < 4.4)
+
+    //Stop Driving Forward
+    if (timer.get() >= 4.85 && timer.get() < 4.9)
     {
-      lowerWrist.execute();
+      m_robotDrive.stopDriving();
     } 
     
+    //Lower Wrist
+    //if (timer.get() >= 4.0 && timer.get() < 4.1)
+    //{
+    //  lowerWrist.execute();
+    //} 
+    
     //Release Cone
-    if (timer.get() >= 4.4 && timer.get() < 5.4)
+    if (timer.get() >= 4.9 && timer.get() < 5.4)
     {
       lowerWrist.cancel();
       wrist.wristStop();
@@ -181,52 +219,55 @@ public class RobotContainer
     } 
     
     //Drive Backwards
-    if (timer.get() >= 5.4 && timer.get() < 6.4)
+    if (timer.get() >= 5.6 && timer.get() < 8.0)
     {
       m_robotDrive.driveBackward();
+    }
+
+    //Stop Driving Backward
+    if (timer.get() >= 8.0 && timer.get() < 8.2)
+    {
+      m_robotDrive.stopDriving();
+      m_robotDrive.drive.arcadeDrive(0, 0);
+      m_robotDrive.drive.feed();
+      m_robotDrive.stopDriving();
     }
     
     //Raise Wrist
-    if (timer.get() >= 6.4 && timer.get() < 7.8)
+    if (timer.get() >= 8.2 && timer.get() < 9.0)
     {
       raiseWrist.execute();
-    }
-    
-    //Lower Arms
-    if (timer.get() >= 7.8 && timer.get() < 9.8)
-    {
-      raiseWrist.cancel();
-      wrist.wristStop();
-      //if (autoSetting == 0)
-      //{
-        //System.out.println("Setting Switch = 0");
-        //m_robotDrive.turnRobotRight();
-      //} else {
-        //System.out.println("Setting Switch = 1");
-        armRetract.execute();
-      //}
+      armRetract.execute();
     }
 
-    //Drive Backwards
-    if (timer.get() >= 9.8 && timer.get() < 12.8)
+    //Stop Wrist & Arms
+    if (timer.get() >= 9.0 && timer.get() < 9.1)
     {
-      m_robotDrive.driveBackward();
+      //raiseWrist.cancel();
+      //wrist.wristStop();
+      //armRetract.cancel();
     } 
+
+    //Drive Backwards
+    //if (timer.get() >= 9.8 && timer.get() < 10.8)
+    //{
+    //  m_robotDrive.driveBackward();
+    //} 
     
     //Drive Robot Forward
-    if (timer.get() >= 12.8 && timer.get() < 13.8)
+    if (timer.get() >= 10.0 && timer.get() < 13.4)
     {
       m_robotDrive.driveForward();
     } 
     
     //Stop Driving Forward
-    if (timer.get() >= 13.8 && timer.get() < 14.0)
+    if (timer.get() >= 13.4 && timer.get() < 14.0)
     {
       m_robotDrive.stopDriving();
     } 
     
     //Stop All Motors
-    if (timer.get() >= 14.0)
+    if (timer.get() >= 14.9)
     {
       m_robotDrive.drive.arcadeDrive(0, 0);
       m_robotDrive.drive.feed();
