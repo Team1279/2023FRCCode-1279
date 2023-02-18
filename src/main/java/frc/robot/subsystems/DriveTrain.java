@@ -97,7 +97,7 @@ public class DriveTrain extends SubsystemBase
         // This method will be called once per scheduler run
     }
 
-    private static int inverse = 1;
+    private static int inverse = -1;
     private double modifier = Constants.DriveTrain.driveSpeed;
 
     //static Joystick driverStick = Constants.DriverAndOperatorJoystick.driverStick;
@@ -108,8 +108,9 @@ public class DriveTrain extends SubsystemBase
      */
     public void robotDrive() 
     {
-        double ySpeed = driverStick.getRawAxis(Constants.JoystickAxisIDs.LEFT_Y_AXIS) * -1 * inverse * modifier; // makes forward stick positive
-        double zRotation = driverStick.getRawAxis(Constants.JoystickAxisIDs.RIGHT_X_AXIS) * modifier; 
+        //double ySpeed = driverStick.getRawAxis(Constants.JoystickAxisIDs.LEFT_Y_AXIS) * -1 * inverse * modifier; // makes forward stick positive
+        double ySpeed = driverStick.getRawAxis(Constants.JoystickAxisIDs.LEFT_Y_AXIS) * inverse * modifier; // makes forward stick positive
+        double zRotation = driverStick.getRawAxis(Constants.JoystickAxisIDs.RIGHT_X_AXIS) * inverse * modifier; 
             // WPI uses positive=> right; right stick for left and right
 
         drive.arcadeDrive(ySpeed, zRotation);

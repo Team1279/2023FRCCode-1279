@@ -183,7 +183,7 @@ public class Robot extends TimedRobot
     // adjust these so that when the stick is forward both of these are green
     MotorControllers.frontLeft.setInverted(false);
     MotorControllers.rearLeft.setInverted(false);
-    MotorControllers.frontRight.setInverted(false); 
+    MotorControllers.frontRight.setInverted(true); 
     MotorControllers.rearRight.setInverted(true);
 
     MotorControllers.frontLeft.setSafetyEnabled(false);

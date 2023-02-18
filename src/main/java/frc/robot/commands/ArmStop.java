@@ -6,16 +6,22 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Pneumatics;
+import frc.robot.subsystems.WristSubsystem;
+import edu.wpi.first.wpilibj.Timer;
 
 
 public class ArmStop extends CommandBase {
 
   private final Pneumatics stopPneumatic;
+  private final WristSubsystem wristSubsystem;
+
+  private final Timer m_timer = new Timer();
 
   /** Creates a new BackIntakeRetract. */
-  public ArmStop(Pneumatics pneumatics) {
+  public ArmStop(Pneumatics pneumatics, WristSubsystem wrist) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.stopPneumatic = pneumatics;
+    this.wristSubsystem = wrist;
     addRequirements(this.stopPneumatic);
   }
 
@@ -27,6 +33,7 @@ public class ArmStop extends CommandBase {
   @Override
   public void execute() {
     stopPneumatic.ArmStop();
+    wristSubsystem.wristStop();
   }
 
   // Called once the command ends or is interrupted.

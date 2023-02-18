@@ -28,21 +28,18 @@ import frc.robot.commands.ArmRetract;
 public class RobotContainer
 {
   // The robot's subsystems and commands are defined here...
-  //private final DriveTrain m_robotDrive = new DriveTrain();
   public static DriveTrain m_robotDrive = new DriveTrain();
 
   public static WristSubsystem wrist = new WristSubsystem();
 
-  //public static ClimberSubsystem climber = new ClimberSubsystem();
-  //public static IntakeSubsystem intake = new IntakeSubsystem();
   public static MotorControllers motors = new MotorControllers();
 
    
   //Pneumatics Declare
   Pneumatics all_pneumatics = new Pneumatics();
-  ArmExtend armExtend = new ArmExtend(all_pneumatics);
-  ArmRetract armRetract = new ArmRetract(all_pneumatics);
-  ArmStop armStop = new ArmStop(all_pneumatics);
+  ArmExtend armExtend = new ArmExtend(all_pneumatics, wrist);
+  ArmRetract armRetract = new ArmRetract(all_pneumatics, wrist);
+  ArmStop armStop = new ArmStop(all_pneumatics, wrist);
   ConeGrab coneGrab = new ConeGrab(all_pneumatics);
   ConeRelease coneRelease = new ConeRelease(all_pneumatics);
   ConeStop coneStop = new ConeStop(all_pneumatics);
@@ -52,29 +49,11 @@ public class RobotContainer
   
   private RaiseWrist raiseWrist = new RaiseWrist(wrist);
   private LowerWrist lowerWrist = new LowerWrist(wrist);
-  //private PickupCargo pickupCargo = new PickupCargo(intake);
-  //private ConveyorIn inConveyor = new ConveyorIn(conveyor);
-  //private EjectCargo ejectCargo = new EjectCargo(intake, conveyor, shooter);
-  //private LoadCargo loadCargo = new LoadCargo(intake, conveyor);
-  //private LowerClimbers lowerClimbers = new LowerClimbers(climber);
-  //private RaiseClimbers raiseClimbers = new RaiseClimbers(climber);
-  //private RaiseLeftClimber raiseLeftClimber = new RaiseLeftClimber(climber);
-  //private RaiseRightClimber raiseRightClimber = new RaiseRightClimber(climber);
-  //private RaiseIntake raiseIntake = new RaiseIntake(intake);
-  //private LowerIntake lowerIntake = new LowerIntake(intake);
-  //private ShootCargo shootCargo = new ShootCargo(shooter, conveyor);
-  //private AutoShootCargo autoShootCargo = new AutoShootCargo(shooter, conveyor);
+
   private DriveSlow driveSlow = new DriveSlow(m_robotDrive);
   private DriveFast driveFast = new DriveFast(m_robotDrive);
-  //private ShootLow shootLow = new ShootLow(shooter);
-
-  //private SlowButtonPressed slowButton = new SlowButtonPressed(m_robotDrive);
-  //private FastButtonPressed fastButton = new FastButtonPressed(m_robotDrive);
 
   static Joystick operatorStick = Gamepads.operatorJoyStick;
-
-  //public double leftClimberSpeed;
-  //public double rightClimberSpeed;
 
   public int autoSetting = 0;
 
@@ -99,21 +78,17 @@ public class RobotContainer
   private void configureButtonBindings()
   {
     //operator buttons
-    Gamepads.operator_X_Button.whileHeld(armExtend);
-    Gamepads.operator_Y_Button.whileHeld(armRetract);
-    Gamepads.operator_Y_Button.whenReleased(armStop);
-    Gamepads.operator_X_Button.whenReleased(armStop);
+    Gamepads.operator_X_Button.whenPressed(armRetract);
+    Gamepads.operator_Y_Button.whenPressed(armExtend);
+
+    //Gamepads.operator_Y_Button.whenReleased(armStop);
+    //Gamepads.operator_X_Button.whenReleased(armStop);
     Gamepads.operator_A_Button.whileHeld(raiseWrist);
     Gamepads.operator_B_Button.whileHeld(lowerWrist);
     Gamepads.operator_leftShoulderButton.whileHeld(coneGrab);
     Gamepads.operator_rightShoulderButton.whileHeld(coneRelease);
     Gamepads.operator_leftShoulderButton.whenReleased(coneStop);
     Gamepads.operator_rightShoulderButton.whenReleased(coneStop);
-    //Gamepads.operator_backButton.whenHeld(lowerClimbers);
-    //Gamepads.operator_startButton.whenHeld(raiseClimbers);
-    //Gamepads.operator_leftStickButton.whenHeld(lowerIntake); 
-    //Gamepads.operator_rightStickButton.whenHeld(raiseIntake); 
-    //Gamepads.operator_leftStickButton.whenHeld(shootLow);
 
     //driver buttons
     Gamepads.driver_rightShoulderButton.whenHeld(driveSlow);
@@ -158,13 +133,7 @@ public class RobotContainer
   {
     m_robotDrive.drive.arcadeDrive(0, 0);
     m_robotDrive.drive.feed();
-    //conveyor.conveyorStop();
-    //intake.armStop();
-    //intake.intakeStop();
-    //shooter.shooterStop();
-    //climber.climberStop();
-    //climber.rightClimberStop();
-    //climber.leftClimberStop();
+ 
     wrist.wristStop();
     all_pneumatics.ArmStop();
   }
@@ -173,6 +142,11 @@ public class RobotContainer
   public void driveAuto2(Timer timer)
   { 
     //Raise Arms
+    if (timer.get() >= 0.1 && timer.get() < 20.0)
+    {
+      //m_robotDrive.turnRobotRight();
+    }
+
     if (timer.get() >= 0.1 && timer.get() < 2.0)
     {
       armExtend.execute();
