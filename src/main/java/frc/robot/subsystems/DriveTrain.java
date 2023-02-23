@@ -125,7 +125,7 @@ public class DriveTrain extends SubsystemBase
 
     public void driveForward() 
     {
-        drive.arcadeDrive(0.4, 0);
+        drive.arcadeDrive(0.6, 0);
         drive.feed();
     }
 

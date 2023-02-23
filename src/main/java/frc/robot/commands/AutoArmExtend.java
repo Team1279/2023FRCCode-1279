@@ -9,48 +9,35 @@ import frc.robot.subsystems.Pneumatics;
 import frc.robot.subsystems.WristSubsystem;
 import edu.wpi.first.wpilibj.Timer;
 
+public class AutoArmExtend extends CommandBase {
 
-public class ArmRetract extends CommandBase {
-
-  private final Pneumatics retractPneumatic;
+  private final Pneumatics extendPneumatic;
   private final WristSubsystem wristSubsystem;
 
   private final Timer m_timer = new Timer();
 
   /** Creates a new BackIntakeRetract. */
-  public ArmRetract(Pneumatics pneumatics, WristSubsystem wrist) {
+  public AutoArmExtend(Pneumatics pneumatics, WristSubsystem wrist) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.retractPneumatic = pneumatics;
+    this.extendPneumatic = pneumatics;
     this.wristSubsystem = wrist;
-    addRequirements(this.retractPneumatic);
+    addRequirements(this.extendPneumatic);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() 
   {
-    //System.out.println("Shooter Timer: " + m_timer.get());
     m_timer.reset();
     m_timer.start();
-    //System.out.println("Shooter Timer: " + m_timer.get());
+    System.out.println("Start Extend Timer: " + m_timer.get());
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() 
   {
-    if (m_timer.get() >= 0.0 && m_timer.get() <= 0.5)
-    {
-      wristSubsystem.wristUp();
-    } else if (m_timer.get() > 0.5 && m_timer.get() <= 1.6)
-    {
-      System.out.println("Retract Timer: " + m_timer.get());
-      retractPneumatic.ArmRetract();
-      wristSubsystem.wristUp();
-    } else {
-      wristSubsystem.wristStop();
-      retractPneumatic.ArmStop();
-    }
+      extendPneumatic.ArmExtend();
   }
 
   // Called once the command ends or is interrupted.
@@ -58,7 +45,6 @@ public class ArmRetract extends CommandBase {
   public void end(boolean interrupted) 
   {
     m_timer.reset();
-    retractPneumatic.ArmStop();
   }
 
   // Returns true when the command should end.

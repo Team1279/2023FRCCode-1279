@@ -36,10 +36,10 @@ public class ArmExtend extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_timer.get() >= 0.0 && m_timer.get() < 1.0)
+    if (m_timer.get() >= 0.0 && m_timer.get() <= 1.0)
     {
       extendPneumatic.ArmExtend();
-    } else if (m_timer.get() > 1.0 && m_timer.get() <= 1.55)
+    } else if (m_timer.get() > 1.0 && m_timer.get() <= 1.6)
     {
       System.out.println("Extend Timer: " + m_timer.get());
       extendPneumatic.ArmExtend();

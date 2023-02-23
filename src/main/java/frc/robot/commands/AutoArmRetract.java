@@ -10,7 +10,7 @@ import frc.robot.subsystems.WristSubsystem;
 import edu.wpi.first.wpilibj.Timer;
 
 
-public class ArmRetract extends CommandBase {
+public class AutoArmRetract extends CommandBase {
 
   private final Pneumatics retractPneumatic;
   private final WristSubsystem wristSubsystem;
@@ -18,7 +18,7 @@ public class ArmRetract extends CommandBase {
   private final Timer m_timer = new Timer();
 
   /** Creates a new BackIntakeRetract. */
-  public ArmRetract(Pneumatics pneumatics, WristSubsystem wrist) {
+  public AutoArmRetract(Pneumatics pneumatics, WristSubsystem wrist) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.retractPneumatic = pneumatics;
     this.wristSubsystem = wrist;
@@ -39,18 +39,7 @@ public class ArmRetract extends CommandBase {
   @Override
   public void execute() 
   {
-    if (m_timer.get() >= 0.0 && m_timer.get() <= 0.5)
-    {
-      wristSubsystem.wristUp();
-    } else if (m_timer.get() > 0.5 && m_timer.get() <= 1.6)
-    {
-      System.out.println("Retract Timer: " + m_timer.get());
       retractPneumatic.ArmRetract();
-      wristSubsystem.wristUp();
-    } else {
-      wristSubsystem.wristStop();
-      retractPneumatic.ArmStop();
-    }
   }
 
   // Called once the command ends or is interrupted.
@@ -58,7 +47,6 @@ public class ArmRetract extends CommandBase {
   public void end(boolean interrupted) 
   {
     m_timer.reset();
-    retractPneumatic.ArmStop();
   }
 
   // Returns true when the command should end.

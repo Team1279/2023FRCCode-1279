@@ -39,6 +39,8 @@ public class RobotContainer
   Pneumatics all_pneumatics = new Pneumatics();
   ArmExtend armExtend = new ArmExtend(all_pneumatics, wrist);
   ArmRetract armRetract = new ArmRetract(all_pneumatics, wrist);
+  AutoArmExtend autoArmExtend = new AutoArmExtend(all_pneumatics, wrist);
+  AutoArmRetract autoArmRetract = new AutoArmRetract(all_pneumatics, wrist);
   ArmStop armStop = new ArmStop(all_pneumatics, wrist);
   ConeGrab coneGrab = new ConeGrab(all_pneumatics);
   ConeRelease coneRelease = new ConeRelease(all_pneumatics);
@@ -144,7 +146,7 @@ public class RobotContainer
     //Raise Arms
     if (timer.get() >= 0.1 && timer.get() < 2.0)
     {
-      armExtend.execute();
+      autoArmExtend.execute();
     }
     
     //Lower Wrist
@@ -172,51 +174,31 @@ public class RobotContainer
       raiseWrist.cancel();
       wrist.wristStop();
     }
-
-    /*
-    //Raise Wrist to Goal Height
-    if (timer.get() >= 3.0 && timer.get() < 3.2)
-    {
-      raiseWrist.execute();
-    } 
-
-    //Stop Wrist
-    if (timer.get() >= 3.2 && timer.get() < 4.0)
-    {
-      raiseWrist.cancel();
-      wrist.wristStop();
-    }
-    */
     
-    //Drive forward
-    
-    if (timer.get() >= 4.3 && timer.get() < 4.85)
+    //Drive forward (to align with Goal)
+    if (timer.get() >= 4.3 && timer.get() < 4.9)
     {
-      lowerWrist.cancel();
-      wrist.wristStop();
       m_robotDrive.driveForward();
     } 
-    
 
     //Stop Driving Forward
-    if (timer.get() >= 4.85 && timer.get() < 4.9)
+    if (timer.get() >= 4.9 && timer.get() < 5.0)
     {
       m_robotDrive.stopDriving();
     } 
     
-    //Lower Wrist
-    //if (timer.get() >= 4.0 && timer.get() < 4.1)
-    //{
-    //  lowerWrist.execute();
-    //} 
+    //Release Cone
+    if (timer.get() >= 5.0 && timer.get() < 5.4)
+    {
+      coneRelease.execute();
+    }
     
     //Release Cone
-    if (timer.get() >= 4.9 && timer.get() < 5.4)
+    if (timer.get() >= 5.4 && timer.get() < 5.5)
     {
-      lowerWrist.cancel();
-      wrist.wristStop();
-      coneRelease.execute();
-    } 
+      coneRelease.cancel();
+      coneStop.execute();
+    }
     
     //Drive Backwards
     if (timer.get() >= 5.6 && timer.get() < 8.0)
@@ -228,40 +210,37 @@ public class RobotContainer
     if (timer.get() >= 8.0 && timer.get() < 8.2)
     {
       m_robotDrive.stopDriving();
-      m_robotDrive.drive.arcadeDrive(0, 0);
-      m_robotDrive.drive.feed();
-      m_robotDrive.stopDriving();
     }
     
     //Raise Wrist
     if (timer.get() >= 8.2 && timer.get() < 9.0)
     {
       raiseWrist.execute();
-      armRetract.execute();
+    }
+
+    if (timer.get() >= 9.0 && timer.get() < 9.1)
+    {
+      raiseWrist.cancel();
+      wrist.wristStop();
+      autoArmRetract.execute();
     }
 
     //Stop Wrist & Arms
-    if (timer.get() >= 9.0 && timer.get() < 9.1)
+    if (timer.get() >= 9.8 && timer.get() < 9.8)
     {
-      //raiseWrist.cancel();
-      //wrist.wristStop();
-      //armRetract.cancel();
+      raiseWrist.cancel();
+      wrist.wristStop();
+      autoArmRetract.cancel();
     } 
-
-    //Drive Backwards
-    //if (timer.get() >= 9.8 && timer.get() < 10.8)
-    //{
-    //  m_robotDrive.driveBackward();
-    //} 
     
     //Drive Robot Forward
-    if (timer.get() >= 10.0 && timer.get() < 13.4)
+    if (timer.get() >= 10.0 && timer.get() < 11.4)
     {
       m_robotDrive.driveForward();
     } 
     
     //Stop Driving Forward
-    if (timer.get() >= 13.4 && timer.get() < 14.0)
+    if (timer.get() >= 11.4 && timer.get() < 14.0)
     {
       m_robotDrive.stopDriving();
     } 
@@ -273,6 +252,8 @@ public class RobotContainer
       m_robotDrive.drive.feed();
       m_robotDrive.stopDriving();
       wrist.wristStop();
+      autoArmRetract.cancel();
+      autoArmExtend.cancel();
     }
     
   }
