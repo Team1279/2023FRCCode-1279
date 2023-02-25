@@ -206,41 +206,44 @@ public class RobotContainer
       m_robotDrive.driveBackward();
     }
 
+    //Raise Wrist
+    if (timer.get() >= 5.6 && timer.get() < 6.4)
+    {
+      raiseWrist.execute();
+      autoArmRetract.execute();
+    }
+
+    if (timer.get() >= 6.4 && timer.get() < 6.5)
+    {
+      raiseWrist.cancel();
+      wrist.wristStop();
+      //autoArmRetract.execute();
+    }
+
+    //Stop Wrist & Arms
+    if (timer.get() >= 6.5 && timer.get() < 7.0)
+    {
+      raiseWrist.cancel();
+      wrist.wristStop();
+      autoArmRetract.cancel();
+    } 
+
     //Stop Driving Backward
     if (timer.get() >= 8.0 && timer.get() < 8.2)
     {
       m_robotDrive.stopDriving();
     }
     
-    //Raise Wrist
-    if (timer.get() >= 8.2 && timer.get() < 9.0)
-    {
-      raiseWrist.execute();
-    }
-
-    if (timer.get() >= 9.0 && timer.get() < 9.1)
-    {
-      raiseWrist.cancel();
-      wrist.wristStop();
-      autoArmRetract.execute();
-    }
-
-    //Stop Wrist & Arms
-    if (timer.get() >= 9.8 && timer.get() < 9.8)
-    {
-      raiseWrist.cancel();
-      wrist.wristStop();
-      autoArmRetract.cancel();
-    } 
-    
     //Drive Robot Forward
-    if (timer.get() >= 10.0 && timer.get() < 13.0)
+    //if (timer.get() >= 10.0 && timer.get() < 13.0)
+    if (timer.get() >= 8.2 && timer.get() < 11.2)
     {
       m_robotDrive.driveForward();
     } 
     
     //Stop Driving Forward
-    if (timer.get() >= 14.0 && timer.get() < 14.1)
+    //if (timer.get() >= 14.0 && timer.get() < 14.1)
+    if (timer.get() >= 11.2 && timer.get() < 11.3)
     {
       m_robotDrive.stopDriving();
     } 
