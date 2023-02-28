@@ -181,11 +181,19 @@ public class RobotContainer
       m_robotDrive.driveForward();
     } 
 
-    //Stop Driving Forward
-    if (timer.get() >= 5.0 && timer.get() < 5.1)
+    //Stop Driving Forward and Lower Wrist
+    if (timer.get() >= 5.0 && timer.get() < 5.2)
     {
       m_robotDrive.stopDriving();
+      lowerWrist.execute();
     } 
+
+    //Stop Wrist
+    if (timer.get() >= 5.2 && timer.get() < 5.3)
+    {
+      raiseWrist.cancel();
+      wrist.wristStop();
+    }
     
     //Release Cone
     if (timer.get() >= 5.2 && timer.get() < 5.4)
@@ -193,7 +201,7 @@ public class RobotContainer
       coneRelease.execute();
     }
     
-    //Release Cone
+    //Stop Release Cone
     if (timer.get() >= 5.4 && timer.get() < 5.5)
     {
       coneRelease.cancel();
