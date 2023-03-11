@@ -141,7 +141,7 @@ public class RobotContainer
   }
 
   //Setup 15 second autonomous mode with variable intervals
-  public void driveAuto(Timer timer)
+  public void driveAuto(Timer timer) //No Charging Station
   { 
     //Raise Arms
     if (timer.get() >= 0.1 && timer.get() < 2.0)
@@ -149,79 +149,61 @@ public class RobotContainer
       autoArmExtend.execute();
     }
     
-    //Lower Wrist
-    if (timer.get() >= 2.2 && timer.get() < 3.0)
-    {
-      lowerWrist.execute();
-    }
-
-    //Stop Wrist
-    if (timer.get() >= 3.0 && timer.get() < 3.1)
-    {
-      lowerWrist.cancel();
-      wrist.wristStop();
-    }
-    
-    //Raise Wrist to Goal Height
-    if (timer.get() >= 3.4 && timer.get() < 3.9)
-    {
-      raiseWrist.execute();
-    } 
-    
-    //Stop Wrist
-    if (timer.get() >= 3.9 && timer.get() < 4.3)
-    {
-      raiseWrist.cancel();
-      wrist.wristStop();
-    }
-    
     //Drive forward (to align with Goal)
-    if (timer.get() >= 4.3 && timer.get() < 5.0)
+    //if (timer.get() >= 4.3 && timer.get() < 5.0)
+    if (timer.get() >= 2.0 && timer.get() < 2.7)
     {
       m_robotDrive.driveForward();
     } 
 
     //Stop Driving Forward and Lower Wrist
-    if (timer.get() >= 5.0 && timer.get() < 5.2)
+    //if (timer.get() >= 5.0 && timer.get() < 5.2)
+    if (timer.get() >= 2.7 && timer.get() < 3.6)
     {
       m_robotDrive.stopDriving();
       lowerWrist.execute();
     } 
 
     //Stop Wrist
-    if (timer.get() >= 5.2 && timer.get() < 5.3)
+    //if (timer.get() >= 5.2 && timer.get() < 5.3)
+    if (timer.get() >= 3.6 && timer.get() < 3.7)
     {
-      raiseWrist.cancel();
+      lowerWrist.cancel();
       wrist.wristStop();
     }
     
     //Release Cone
-    if (timer.get() >= 5.2 && timer.get() < 5.4)
+    //if (timer.get() >= 5.2 && timer.get() < 5.4)
+    if (timer.get() >= 3.7 && timer.get() < 3.9)
     {
       coneRelease.execute();
     }
     
     //Stop Release Cone
-    if (timer.get() >= 5.4 && timer.get() < 5.5)
+    //if (timer.get() >= 5.4 && timer.get() < 5.5)
+    if (timer.get() >= 3.9 && timer.get() < 4.0)
     {
       coneRelease.cancel();
       coneStop.execute();
     }
     
     //Drive Backwards
-    if (timer.get() >= 5.6 && timer.get() < 8.0)
+    //if (timer.get() >= 5.6 && timer.get() < 8.0)
+    if (timer.get() >= 4.0 && timer.get() < 6.4)
     {
       m_robotDrive.driveBackward();
     }
 
     //Raise Wrist
-    if (timer.get() >= 5.6 && timer.get() < 6.4)
+    //if (timer.get() >= 5.6 && timer.get() < 6.4)
+    if (timer.get() >= 4.0 && timer.get() < 4.8)
     {
       raiseWrist.execute();
       autoArmRetract.execute();
     }
 
-    if (timer.get() >= 6.4 && timer.get() < 6.5)
+    //if (timer.get() >= 6.4 && timer.get() < 6.5)
+    if (timer.get() >= 4.8 && timer.get() < 4.9)
     {
       raiseWrist.cancel();
       wrist.wristStop();
@@ -229,7 +211,8 @@ public class RobotContainer
     }
 
     //Stop Wrist & Arms
-    if (timer.get() >= 6.5 && timer.get() < 7.0)
+    //if (timer.get() >= 6.5 && timer.get() < 7.0)
+    if (timer.get() >= 4.9 && timer.get() < 5.0)
     {
       raiseWrist.cancel();
       wrist.wristStop();
@@ -237,21 +220,122 @@ public class RobotContainer
     } 
 
     //Stop Driving Backward
-    if (timer.get() >= 8.0 && timer.get() < 8.2)
+    //if (timer.get() >= 8.0 && timer.get() < 8.2)
+    if (timer.get() >= 6.4 && timer.get() < 6.6)
     {
       m_robotDrive.stopDriving();
     }
     
     //Drive Robot Forward
     //if (timer.get() >= 10.0 && timer.get() < 13.0)
-    if (timer.get() >= 8.2 && timer.get() < 11.2)
+    if (timer.get() >= 6.6 && timer.get() < 10.15)
     {
       m_robotDrive.driveForward();
     } 
     
     //Stop Driving Forward
     //if (timer.get() >= 14.0 && timer.get() < 14.1)
-    if (timer.get() >= 11.2 && timer.get() < 11.3)
+    if (timer.get() >= 10.15 && timer.get() < 10.3)
+    {
+      m_robotDrive.stopDriving();
+    } 
+    
+    //Stop All Motors
+    if (timer.get() >= 14.9)
+    {
+      m_robotDrive.drive.arcadeDrive(0, 0);
+      m_robotDrive.drive.feed();
+      m_robotDrive.stopDriving();
+      wrist.wristStop();
+      autoArmRetract.cancel();
+      autoArmExtend.cancel();
+    }
+    
+  }
+
+  public void driveAutoCS(Timer timer) //With Charging Station
+  { 
+    //Raise Arms
+    if (timer.get() >= 0.1 && timer.get() < 2.0)
+    {
+      autoArmExtend.execute();
+    }
+    
+    //Drive forward (to align with Goal)
+    if (timer.get() >= 2.0 && timer.get() < 2.7)
+    {
+      m_robotDrive.driveForward();
+    } 
+
+    //Stop Driving Forward and Lower Wrist
+    if (timer.get() >= 2.7 && timer.get() < 3.6)
+    {
+      m_robotDrive.stopDriving();
+      lowerWrist.execute();
+    } 
+
+    //Stop Wrist
+    if (timer.get() >= 3.6 && timer.get() < 3.7)
+    {
+      lowerWrist.cancel();
+      wrist.wristStop();
+    }
+    
+    //Release Cone
+    if (timer.get() >= 3.7 && timer.get() < 3.9)
+    {
+      coneRelease.execute();
+    }
+    
+    //Stop Release Cone
+    if (timer.get() >= 3.9 && timer.get() < 4.0)
+    {
+      coneRelease.cancel();
+      coneStop.execute();
+    }
+    
+    //Drive Backwards
+    if (timer.get() >= 4.0 && timer.get() < 8.7)
+    {
+      m_robotDrive.driveBackward();
+    }
+
+    //Raise Wrist
+    if (timer.get() >= 4.0 && timer.get() < 4.8)
+    {
+      raiseWrist.execute();
+      autoArmRetract.execute();
+    }
+
+    if (timer.get() >= 4.8 && timer.get() < 4.9)
+    {
+      raiseWrist.cancel();
+      wrist.wristStop();
+      //autoArmRetract.execute();
+    }
+
+    //Stop Wrist & Arms
+    if (timer.get() >= 4.9 && timer.get() < 5.0)
+    {
+      raiseWrist.cancel();
+      wrist.wristStop();
+      autoArmRetract.cancel();
+    } 
+
+    //Stop Driving Backward
+    if (timer.get() >= 8.7 && timer.get() < 8.8)
+    {
+      m_robotDrive.stopDriving();
+    }
+    
+    //Drive Robot Forward
+    if (timer.get() >= 8.8 && timer.get() < 14.2)
+    {
+      m_robotDrive.driveForward();
+    } 
+    
+    //Stop Driving Forward
+    if (timer.get() >= 14.2 && timer.get() < 14.3)
     {
       m_robotDrive.stopDriving();
     } 

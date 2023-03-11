@@ -217,15 +217,15 @@ public class Robot extends TimedRobot
     //    System.out.println("In Custom Auto");
     //    break;
     //  case kDefaultAuto:
-    //    m_robotContainer.driveAuto1(timer);
+    //    m_robotContainer.driveAutoCS(timer);
     //    break;
     //  default:
     //    // Put default auto code here
     //    break;
     //}
     //System.out.println("Robot Timer: " + timer.get());
-    //m_robotContainer.driveAuto1(timer);
-    m_robotContainer.driveAuto(timer);
+    //m_robotContainer.driveAutoCS(timer); //When lined up with Control Station
+    m_robotContainer.driveAuto(timer); //When NOT lines up with Control Station
   }
 
   /** This function is called once when teleop is enabled. */
