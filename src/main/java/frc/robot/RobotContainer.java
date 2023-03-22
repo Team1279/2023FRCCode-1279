@@ -27,13 +27,15 @@ import frc.robot.commands.ArmRetract;
  */
 public class RobotContainer
 {
+  public static float initialPitch;
+  public static float currentPitch;
+
   // The robot's subsystems and commands are defined here...
   public static DriveTrain m_robotDrive = new DriveTrain();
 
   public static WristSubsystem wrist = new WristSubsystem();
 
   public static MotorControllers motors = new MotorControllers();
-
    
   //Pneumatics Declare
   Pneumatics all_pneumatics = new Pneumatics();
@@ -48,6 +50,7 @@ public class RobotContainer
   CubeGrab cubeGrab = new CubeGrab(all_pneumatics);
   CubeRelease cubeRelease = new CubeRelease(all_pneumatics);
   CubeStop cubeStop = new CubeStop(all_pneumatics);
+  BalanceRobot balanceRobot = new BalanceRobot(m_robotDrive);
   
   private RaiseWrist raiseWrist = new RaiseWrist(wrist);
   private LowerWrist lowerWrist = new LowerWrist(wrist);
@@ -95,6 +98,7 @@ public class RobotContainer
     //driver buttons
     Gamepads.driver_rightShoulderButton.whenHeld(driveSlow);
     Gamepads.driver_leftShoulderButton.whenHeld(driveFast);
+    Gamepads.driver_X_Button.whenHeld(balanceRobot);
   }
 
   /**
@@ -138,6 +142,20 @@ public class RobotContainer
  
     wrist.wristStop();
     all_pneumatics.ArmStop();
+  }
+
+  public void whichDriveAuto(Timer timer)
+  {
+    if (autoSetting == 0)
+    {
+      driveAuto(timer);
+    } else if (autoSetting == 1)
+    {
+      driveAutoCS(timer);
+    } else {
+      driveAutoCS(timer);
+    }
+
   }
 
   //Setup 15 second autonomous mode with variable intervals
@@ -189,7 +207,7 @@ public class RobotContainer
     
     //Drive Backwards
     //if (timer.get() >= 5.6 && timer.get() < 8.0)
-    if (timer.get() >= 4.0 && timer.get() < 6.4)
+    if (timer.get() >= 4.0 && timer.get() < 7.1)
     {
       m_robotDrive.driveBackward();
     }
@@ -221,25 +239,38 @@ public class RobotContainer
 
     //Stop Driving Backward
     //if (timer.get() >= 8.0 && timer.get() < 8.2)
-    if (timer.get() >= 6.4 && timer.get() < 6.6)
+    if (timer.get() >= 7.1 && timer.get() < 7.2)
     {
       m_robotDrive.stopDriving();
     }
     
+    /* For full Auto (no Self-Balance)
     //Drive Robot Forward
     //if (timer.get() >= 10.0 && timer.get() < 13.0)
-    if (timer.get() >= 6.6 && timer.get() < 10.15)
+    if (timer.get() >= 7.2 && timer.get() < 13.35)
     {
       m_robotDrive.driveForward();
     } 
     
     //Stop Driving Forward
     //if (timer.get() >= 14.0 && timer.get() < 14.1)
-    if (timer.get() >= 10.15 && timer.get() < 10.3)
+    if (timer.get() >= 13.35 && timer.get() < 13.9)
     {
       m_robotDrive.stopDriving();
     } 
+    */
+
+    if (timer.get() >= 7.2 && timer.get() < 8.2)
+    {
+      m_robotDrive.driveForward(0.8);
+    }
+
+    if (timer.get() >= 8.2)
+    {
+      balanceRobot.execute();
+    }
     
+    /*
     //Stop All Motors
     if (timer.get() >= 14.9)
     {
@@ -250,6 +281,7 @@ public class RobotContainer
       autoArmRetract.cancel();
       autoArmExtend.cancel();
     }
+    */
     
   }
 
@@ -352,4 +384,6 @@ public class RobotContainer
     }
     
   }
+
+  
 }

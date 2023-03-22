@@ -129,6 +129,12 @@ public class DriveTrain extends SubsystemBase
         drive.feed();
     }
 
+    public void driveForward(double speed) 
+    {
+        drive.arcadeDrive(speed, 0);
+        drive.feed();
+    }
+
     public void driveBackward()
     {
         drive.arcadeDrive(-0.6, 0);
