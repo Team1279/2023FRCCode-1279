@@ -41,8 +41,8 @@ public class BalanceRobotPID extends CommandBase
     initialPitch = RobotContainer.initialPitch;
     currentPitch = RobotContainer.currentPitch;
     float relativePitch = currentPitch - initialPitch;
-    double lowSpeed = 0.4;
-    double highSpeed = 0.8;
+    double lowSpeed = 0.25;
+    double highSpeed = 0.6;
 
     //Calculate Pitch Ratio
     //if relativePitch = raisedPlatformAngle then pitch ratio = 1.0 & speed = highSpeed
@@ -54,38 +54,32 @@ public class BalanceRobotPID extends CommandBase
     double speedRatio = highSpeed - lowSpeed;
     double speedValue = (pitchRatio * speedRatio) + lowSpeed;
 
-    //driveTrain.driveForward(0.8);
-    // Robot is pitched Up
-    //if (isTiltedUp(initialPitch, currentPitch))
-    //{
-      //Robot pitch is at or above maximum platform angle, go high speed
-      if ((Math.abs(relativePitch) >= raisedPlatformAngle) && (Math.abs(relativePitch) <= skirtAngle))
+    //Robot pitch is at or above maximum platform angle, go high speed
+    if ((Math.abs(relativePitch) >= raisedPlatformAngle) && (Math.abs(relativePitch) <= skirtAngle))
+    {
+      if (isTiltedUp(initialPitch, currentPitch))
       {
-        if (isTiltedUp(initialPitch, currentPitch))
-        {
-          driveTrain.driveForward(highSpeed);
-        }
-        if (isTiltedDown(initialPitch, currentPitch))
-        {
-          driveTrain.driveBackward(highSpeed);
-        }
+        driveTrain.driveForward(highSpeed);
       }
-
-      //Set forward speed based on pitch and speed ratios
-      if ((Math.abs(relativePitch) > levelPlatformAngle) && (Math.abs(relativePitch) < raisedPlatformAngle))
+      if (isTiltedDown(initialPitch, currentPitch))
       {
-        System.out.println("Pitch level - Start Driving: " + speedValue);
-        if (isTiltedUp(initialPitch, currentPitch))
-        {
-          driveTrain.driveForward(speedValue);
-        }
-        if (isTiltedDown(initialPitch, currentPitch))
-        {
-          System.out.println("Tilted DOWN");
-          driveTrain.driveBackward(speedValue);
-        } 
+        driveTrain.driveBackward(highSpeed);
       }
-    //}
+    }
+    //Set forward speed based on pitch and speed ratios
+    if ((Math.abs(relativePitch) > levelPlatformAngle) && (Math.abs(relativePitch) < raisedPlatformAngle))
+    {
+      System.out.println("Pitch level - Start Driving: " + speedValue);
+      if (isTiltedUp(initialPitch, currentPitch))
+      {
+        driveTrain.driveForward(speedValue);
+      }
+      if (isTiltedDown(initialPitch, currentPitch))
+      {
+        System.out.println("Tilted DOWN");
+        driveTrain.driveBackward(speedValue);
+      } 
+    }
 
     //Robot is level so stop driving
     if ((Math.abs(relativePitch) <= levelPlatformAngle)) // && (relativePitch >= (levelPlatformAngle * -1)))
@@ -98,31 +92,13 @@ public class BalanceRobotPID extends CommandBase
     {
       driveTrain.stopDriving();
     }
-    
-    /*
-    // Robot is pitched Down
-    if (isTiltedDown(initialPitch, currentPitch))
-    {
-      //Robot pitch is at or above maximum platform angle, go high speed
-      if ((Math.abs(relativePitch) >= raisedPlatformAngle) && (Math.abs(relativePitch) <= skirtAngle))
-      {
-        driveTrain.driveBackward(highSpeed);
-      }
-
-      //Set forward speed based on pitch and speed ratios
-      if ((Math.abs(relativePitch) > levelPlatformAngle) && (Math.abs(relativePitch) < raisedPlatformAngle))
-      { 
-        driveTrain.driveBackward(speedValue);
-      }
-    }
-    */
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted)
   {
-    driveTrain.stopDriving();
+    //driveTrain.stopDriving();
   }
 
   // Returns true when the command should end.
