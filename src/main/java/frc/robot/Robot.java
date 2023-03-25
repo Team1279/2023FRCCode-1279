@@ -441,7 +441,7 @@ public class Robot extends TimedRobot
     SmartDashboard.putNumber(   "Initial Pitch",        initialPitch);
     SmartDashboard.putBoolean(  "MotionDetected",       ahrs.isMoving());
     float relativePitch = ahrs.getPitch() - initialPitch;
-    SmartDashboard.putNumber(   "Relative Pitch",       relativePitch);
+    SmartDashboard.putNumber(   "Relative Pitch",       Math.abs(relativePitch));
 
   }
 

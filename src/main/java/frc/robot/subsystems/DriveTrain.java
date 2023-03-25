@@ -141,6 +141,12 @@ public class DriveTrain extends SubsystemBase
         drive.feed();
     }
 
+    public void driveBackward(double speed) 
+    {
+        drive.arcadeDrive((speed * -1), 0);
+        drive.feed();
+    }
+
     public void turnRobotRight() 
     {
         drive.arcadeDrive(0, -0.4);

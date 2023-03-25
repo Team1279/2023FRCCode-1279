@@ -72,15 +72,15 @@ public class BalanceRobot extends CommandBase
       // Robot is backing up the Charging Station
       if (relativePitch <= (raisedPlatformAngle * -1))
       {
-        driveTrain.driveForward(0.8);
+        driveTrain.driveBackward(0.8);
       }
       if ((relativePitch <= (loweredSkirtAngle * -1)) && (relativePitch > (raisedPlatformAngle * -1)))
       { 
-        driveTrain.driveForward(0.6);
+        driveTrain.driveBackward(0.6);
       }
       if ((relativePitch <= (levelPlatformAngle * -1)) && (relativePitch > (loweredSkirtAngle * -1)))
       { 
-        driveTrain.driveForward(0.4);
+        driveTrain.driveBackward(0.4);
       }
     }
   }

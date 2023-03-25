@@ -51,6 +51,7 @@ public class RobotContainer
   CubeRelease cubeRelease = new CubeRelease(all_pneumatics);
   CubeStop cubeStop = new CubeStop(all_pneumatics);
   BalanceRobot balanceRobot = new BalanceRobot(m_robotDrive);
+  BalanceRobotPID balanceRobotPID = new BalanceRobotPID(m_robotDrive);
   
   private RaiseWrist raiseWrist = new RaiseWrist(wrist);
   private LowerWrist lowerWrist = new LowerWrist(wrist);
@@ -98,7 +99,7 @@ public class RobotContainer
     //driver buttons
     Gamepads.driver_rightShoulderButton.whenHeld(driveSlow);
     Gamepads.driver_leftShoulderButton.whenHeld(driveFast);
-    Gamepads.driver_X_Button.whenHeld(balanceRobot);
+    Gamepads.driver_X_Button.whenHeld(balanceRobotPID);
   }
 
   /**
@@ -267,7 +268,7 @@ public class RobotContainer
 
     if (timer.get() >= 8.2)
     {
-      balanceRobot.execute();
+      balanceRobotPID.execute();
     }
     
     /*
