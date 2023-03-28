@@ -54,22 +54,11 @@ public class BalanceRobotPID extends CommandBase
     double speedRatio = highSpeed - lowSpeed;
     double speedValue = (pitchRatio * speedRatio) + lowSpeed;
 
-    //Robot pitch is at or above maximum platform angle, go high speed
-    if ((Math.abs(relativePitch) >= raisedPlatformAngle) && (Math.abs(relativePitch) <= skirtAngle))
-    {
-      if (isTiltedUp(initialPitch, currentPitch))
-      {
-        driveTrain.driveForward(highSpeed);
-      }
-      if (isTiltedDown(initialPitch, currentPitch))
-      {
-        driveTrain.driveBackward(highSpeed);
-      }
-    }
     //Set forward speed based on pitch and speed ratios
-    if ((Math.abs(relativePitch) > levelPlatformAngle) && (Math.abs(relativePitch) < raisedPlatformAngle))
+    // 2.5 < relativePitch <= 15.0
+    if ((Math.abs(relativePitch) > levelPlatformAngle) && (Math.abs(relativePitch) <= raisedPlatformAngle))
     {
-      System.out.println("Pitch level - Start Driving: " + speedValue);
+      System.out.println("Pitch level - Start Driving: " + relativePitch + "=>" + speedValue);
       if (isTiltedUp(initialPitch, currentPitch))
       {
         driveTrain.driveForward(speedValue);
@@ -80,16 +69,31 @@ public class BalanceRobotPID extends CommandBase
         driveTrain.driveBackward(speedValue);
       } 
     }
-
-    //Robot is level so stop driving
-    if ((Math.abs(relativePitch) <= levelPlatformAngle)) // && (relativePitch >= (levelPlatformAngle * -1)))
+    //Robot pitch is at or above maximum platform angle, but less than skirt angle, go high speed
+    // 15.0 < relativePitch <= 34.25
+    else if ((Math.abs(relativePitch) > raisedPlatformAngle) && (Math.abs(relativePitch) <= skirtAngle))
     {
+      if (isTiltedUp(initialPitch, currentPitch))
+      {
+        driveTrain.driveForward(highSpeed);
+      }
+      if (isTiltedDown(initialPitch, currentPitch))
+      {
+        driveTrain.driveBackward(highSpeed);
+      }
+    }
+    //Robot is level so stop driving
+    // 2.5 >= relativePitch
+    else if ((Math.abs(relativePitch) <= levelPlatformAngle)) // && (relativePitch >= (levelPlatformAngle * -1)))
+    {
+      System.out.println("Robot is level - Stop Driving: " +  relativePitch + "=>" + speedValue);
       driveTrain.stopDriving();
     }
-
     //Robot at too steep of a pitch, so stop driving
-    if (Math.abs(relativePitch) > skirtAngle)
+    // 34.25 < relativePitch
+    else if (Math.abs(relativePitch) > skirtAngle)
     {
+      System.out.println("Robot is TO HIGH - Stop Driving: " +  relativePitch + "=>" + speedValue);
       driveTrain.stopDriving();
     }
   }

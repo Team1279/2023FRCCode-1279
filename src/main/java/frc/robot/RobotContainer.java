@@ -262,14 +262,18 @@ public class RobotContainer
     } 
     */
 
-    if (timer.get() >= 7.2 && timer.get() < 8.2)
+    //Move forward and autobalance if autononmous physical switch is set to ON
+    if (autoSetting == 1)
     {
-      m_robotDrive.driveForward(0.8);
-    }
+      if (timer.get() >= 7.2 && timer.get() < 8.2)
+      {
+        m_robotDrive.driveForward(0.8);
+      }
 
-    if (timer.get() >= 8.2)
-    {
-      balanceRobotPID.execute();
+      if (timer.get() >= 8.2)
+      {
+        balanceRobotPID.execute();
+      }
     }
     
     /*
