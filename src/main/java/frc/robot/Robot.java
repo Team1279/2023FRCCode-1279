@@ -47,9 +47,10 @@ public class Robot extends TimedRobot
   UsbCamera forwardCamera;
   UsbCamera backwardCamera;
 
-  AHRS ahrs;
+  //AHRS ahrs;
+  AHRS ahrs = new AHRS(I2C.Port.kMXP);
   //Boolean isTilted;
-  float initialPitch;
+  float initialPitch = Float.parseFloat("0.0");
   boolean motionDetected;
 
   /* Robot I/O helpers */
@@ -137,10 +138,11 @@ public class Robot extends TimedRobot
     //isTilted = false;
     //ahrs = new AHRS(SerialPort.Port.kMXP); // Alternatives:  SPI.Port.kMXP, I2C.Port.kMXP or SerialPort.Port.kUSB 
     //ahrs = new AHRS(SPI.Port.kMXP);
-    ahrs = new AHRS(I2C.Port.kMXP);
+    ////ahrs = new AHRS(I2C.Port.kMXP);
     //ahrs.calibrate();
     //ahrs.reset();
-    initialPitch = ahrs.getPitch();
+    //initialPitch = ahrs.getPitch();
+    //initialPitch = 0.0;
     m_robotContainer.initialPitch = initialPitch;
     motionDetected = false;
     updateSmartDashboard();
@@ -217,10 +219,10 @@ public class Robot extends TimedRobot
     if (MotorControllers.autoSettingSwitch.get())
     {
       m_robotContainer.setAutonomousSetting(1);
-      //System.out.println("Setting Switch = 1");
+      System.out.println("Setting Switch = 1");
     } else {
       m_robotContainer.setAutonomousSetting(0);
-      //System.out.println("Setting Switch = 0");
+      System.out.println("Setting Switch = 0");
     }
 
     //timer.stop();
@@ -246,9 +248,24 @@ public class Robot extends TimedRobot
     //    break;
     //}
     //System.out.println("Robot Timer: " + timer.get());
+
+    //if (timer.get() < 0.2)
+    //{
+      //initialPitch = ahrs.getPitch();
+      //System.out.println("Setting Initial Pitch = " + initialPitch);
+      //m_robotContainer.initialPitch = initialPitch;
+    //}
+    updateSmartDashboard();
+    //SmartDashboard.updateValues();
+    motionDetected = ahrs.isMoving();
+    //Balance the robot on the Charging Station
+    m_robotContainer.initialPitch = initialPitch;
+    m_robotContainer.currentPitch = ahrs.getPitch();
+
     //m_robotContainer.driveAutoCS(timer); //When lined up with Control Station
-    m_robotContainer.driveAuto(timer); //When NOT lined up with Control Station
-    //m_robotContainer.whichDriveAuto(timer); //Determine which autonomous mode based on switch setting
+    m_robotContainer.driveAuto(timer); //Switch determines (1)Fwd&Balance or (0)Stop after Backwards
+    //m_robotContainer.driveBalance(timer); //Just autobalance
+    ////m_robotContainer.whichDriveAuto(timer); //Switch determines (1)Full Auto or (0)Skip Balancing
   }
 
   /** This function is called once when teleop is enabled. */
@@ -310,11 +327,11 @@ public class Robot extends TimedRobot
     // yEntry.setDouble(y);
     // x += 0.05;
     // y += 1.0;
-    if (timer.get() < 0.2)
-    {
-      initialPitch = ahrs.getPitch();
-      m_robotContainer.initialPitch = initialPitch;
-    }
+    //if (timer.get() < 0.2)
+    //{
+      //initialPitch = ahrs.getPitch();
+      //m_robotContainer.initialPitch = initialPitch;
+    //}
     updateSmartDashboard();
     //SmartDashboard.updateValues();
     motionDetected = ahrs.isMoving();
@@ -442,6 +459,7 @@ public class Robot extends TimedRobot
     SmartDashboard.putBoolean(  "MotionDetected",       ahrs.isMoving());
     float relativePitch = ahrs.getPitch() - initialPitch;
     SmartDashboard.putNumber(   "Relative Pitch",       Math.abs(relativePitch));
+    SmartDashboard.putNumber(   "Speed Value",          m_robotContainer.getSpeedValue());
 
   }
 

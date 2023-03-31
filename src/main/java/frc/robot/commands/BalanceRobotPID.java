@@ -42,7 +42,7 @@ public class BalanceRobotPID extends CommandBase
     currentPitch = RobotContainer.currentPitch;
     float relativePitch = currentPitch - initialPitch;
     double lowSpeed = 0.25;
-    double highSpeed = 0.6;
+    double highSpeed = 0.5;
 
     //Calculate Pitch Ratio
     //if relativePitch = raisedPlatformAngle then pitch ratio = 1.0 & speed = highSpeed
@@ -58,7 +58,7 @@ public class BalanceRobotPID extends CommandBase
     // 2.5 < relativePitch <= 15.0
     if ((Math.abs(relativePitch) > levelPlatformAngle) && (Math.abs(relativePitch) <= raisedPlatformAngle))
     {
-      System.out.println("Pitch level - Start Driving: " + relativePitch + "=>" + speedValue);
+      System.out.println("Robot Pitched - Start Driving: " + relativePitch + "=>" + speedValue);
       if (isTiltedUp(initialPitch, currentPitch))
       {
         driveTrain.driveForward(speedValue);
@@ -73,6 +73,7 @@ public class BalanceRobotPID extends CommandBase
     // 15.0 < relativePitch <= 34.25
     else if ((Math.abs(relativePitch) > raisedPlatformAngle) && (Math.abs(relativePitch) <= skirtAngle))
     {
+      System.out.println("Robot Up HIGH - Go Fast: " + relativePitch + "=>" + speedValue);
       if (isTiltedUp(initialPitch, currentPitch))
       {
         driveTrain.driveForward(highSpeed);
@@ -93,7 +94,7 @@ public class BalanceRobotPID extends CommandBase
     // 34.25 < relativePitch
     else if (Math.abs(relativePitch) > skirtAngle)
     {
-      System.out.println("Robot is TO HIGH - Stop Driving: " +  relativePitch + "=>" + speedValue);
+      System.out.println("Robot is TOO HIGH - Stop Driving: " +  relativePitch + "=>" + speedValue);
       driveTrain.stopDriving();
     }
   }
