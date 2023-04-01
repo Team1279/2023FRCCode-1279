@@ -222,23 +222,15 @@ public class RobotContainer
 
     //Raise Wrist
     //if (timer.get() >= 5.6 && timer.get() < 6.4)
-    if (timer.get() >= 4.5 && timer.get() < 4.8)
+    if (timer.get() >= 4.5 && timer.get() < 6.1)
     {
       raiseWrist.execute();
       autoArmRetract.execute();
     }
 
-    //if (timer.get() >= 6.4 && timer.get() < 6.5)
-    if (timer.get() >= 4.8 && timer.get() < 4.9)
-    {
-      raiseWrist.cancel();
-      wrist.wristStop();
-      //autoArmRetract.execute();
-    }
-
     //Stop Wrist & Arms
     //if (timer.get() >= 6.5 && timer.get() < 7.0)
-    if (timer.get() >= 4.9 && timer.get() < 5.0)
+    if (timer.get() >= 6.1 && timer.get() < 6.2)
     {
       raiseWrist.cancel();
       wrist.wristStop();
